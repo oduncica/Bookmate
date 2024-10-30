@@ -54,17 +54,6 @@ Assurez-vous que MongoDB est en cours d'exécution pour que l'application puisse
 
 Une documentation détaillée des endpoints de l'API sera fournie dans une prochaine version.
 
-- **Auth** :
-  - `POST /api/auth/register` : Inscription utilisateur
-  - `POST /api/auth/login` : Connexion utilisateur
-
-- **Bibliothèque** :
-  - `POST /api/library/add` : Ajouter un livre à la bibliothèque personnelle
-  - `GET /api/library` : Obtenir les livres enregistrés
-
-- **Recommandations** :
-  - `GET /api/recommendations` : Obtenir des recommandations basées sur les préférences
-
 ---
 
 ## 🛠️ Fonctionnalités à venir
