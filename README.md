@@ -25,7 +25,7 @@ Avant de commencer, assurez-vous d’avoir installé :
 Clonez le projet et accédez au dossier principal :
 
 ```bash
-git clone https://github.com/oduncica/bookmate.git
+git clone git@github.com:oduncica/bookmate.git
 cd bookmate
 ```
 
