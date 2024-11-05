@@ -24,6 +24,8 @@ app.use(express.json());
 
 // Routes de l'application
 app.get('/', (req, res) => res.send('<h1>Bienvenue sur Bookmate</h1>'));
+app.get('/hello', (req, res) => res.send('<h1>Rencontrez votre ame soeur</h1>'));
+
 app.use('/api/auth', authRoutes);
 
 // Exportation pour utilisation par server.js
