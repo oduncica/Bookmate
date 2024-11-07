@@ -1,8 +1,9 @@
-const bcrypt = require('bcryptjs');
+// authController.js
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User'); // Assurez-vous que le chemin est correct
-const jwt = require('jsonwebtoken'); // Ajoutez jwt si vous souhaitez générer un token
 
-
+// authController.js - Fonction signup
 exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
@@ -24,23 +25,43 @@ exports.signup = (req, res, next) => {
 };
 
 
+// Connexion
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
-      .then(user => {
-          if (!user) {
-              return res.status(401).json({ message: 'Paire login/mot de passe incorrecte'});
+    .then(user => {
+      if (!user) {
+        console.log('Utilisateur non trouvé');
+        return res.status(401).json({ message: 'Utilisateur non trouvé ou mot de passe incorrect' });
+      }
+      // Comparaison des mots de passe
+      bcrypt.compare(req.body.password, user.password)
+        .then(isPasswordValid => {
+          if (!isPasswordValid) {
+            console.log('Mot de passe incorrect');
+            return res.status(401).json({ message: 'Utilisateur non trouvé ou mot de passe incorrect' });
           }
-          bcrypt.compare(req.body.password, user.password)
-              .then(valid => {
-                  if (!valid) {
-                      return res.status(401).json({ message: 'Paire login/mot de passe incorrecte' });
-                  }
-                  res.status(200).json({
-                      userId: user._id,
-                      token: 'TOKEN'
-                  });
-              })
-              .catch(error => res.status(500).json({ error }));
-      })
-      .catch(error => res.status(500).json({ error }));
+          // Génération du token JWT
+          const token = jwt.sign(
+            { userId: user._id },
+            process.env.JWT_SECRET,
+            { expiresIn: '24h' }
+          );
+          return res.status(200).json({ userId: user._id, token });
+        })
+        .catch(error => {
+          console.error('Erreur lors de la vérification du mot de passe:', error);
+          res.status(500).json({ error: 'Erreur interne, veuillez réessayer plus tard' });
+        });
+    })
+    .catch(error => {
+      console.error('Erreur lors de la recherche de l\'utilisateur:', error);
+      res.status(500).json({ error: 'Erreur interne, veuillez réessayer plus tard' });
+    });
+};
+
+// Obtenir la liste des utilisateurs
+exports.getUsers = (req, res, next) => {
+  User.find()
+    .then(users => res.status(200).json(users))
+    .catch(error => res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' }));
 };
