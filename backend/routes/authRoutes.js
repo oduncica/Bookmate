@@ -1,10 +1,18 @@
-const express = require('express');
+import express from "express";
+import { signup, login, logout } from "../controllers/authController.js";
+import { protectedRoute } from '../middleware/auth.js';
+
 const router = express.Router();
-const authController = require('../controllers/authController');
-const auth = require('../middleware/auth');
 
-router.post('/signup', authController.signup);
-router.post('/login', authController.login);
-router.get('/users', auth, authController.getUsers); // Route protégée pour obtenir les utilisateurs
+router.post("/signup", signup);
+router.post("/login", login);
+router.post("/logout", logout);
 
-module.exports = router;
+router.get("/me", protectedRoute, (req, res) => {
+  res.send({
+    success: true,
+    user: req.user,
+  });
+});
+
+export default router;

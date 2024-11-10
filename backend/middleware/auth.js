@@ -1,7 +1,41 @@
 // auth.js
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
 
-module.exports = (req, res, next) => {
+export const protectedRoute = async (req, res, next) => { 
+  try {
+    const token = req.cookies.jwt;
+
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: 'You are not authenticated - No token provided'
+      });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (!decoded) {
+      return res.status(401).json({
+        success: false,
+        message: 'Not authorized - Invalid token'
+      });
+    }
+
+    const currentUser = await User.findById(decoded.id);
+
+    req.user = currentUser;
+    next();
+  } catch (error) {
+    console.error('Error in protectedRoute middleware:', error);
+    res.status(401).json({
+      success: false,
+      message: 'Not authorized'
+    });
+  }
+};
+
+export const verifyToken = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
