@@ -8,11 +8,6 @@ router.post("/signup", signup);
 router.post("/login", login);
 router.post("/logout", logout);
 
-router.get("/me", getUser, protectedRoute, (req, res) => {
-  res.send({
-    success: true,
-    user: req.user,
-  });
-});
+router.get("/me", protectedRoute, getUser);
 
 export default router;

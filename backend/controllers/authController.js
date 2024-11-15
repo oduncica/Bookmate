@@ -8,10 +8,10 @@ const signToken = (id) => {
 };
 
 export const signup = async (req, res) => {
-  const { email, password, bookPreference } = req.body;
+  const { email, password, bookPreferences } = req.body; // Assurez-vous que le nom du champ est correct
 
   try {
-    if (!email || !password || !bookPreference) {
+    if (!email || !password || !bookPreferences) {
       return res.status(400).json({
         success: false,
         message: "All fields are required",
@@ -37,7 +37,7 @@ export const signup = async (req, res) => {
     const newUser = await User.create({
       email,
       password,
-      bookPreference,
+      bookPreferences,
     });
 
     const token = signToken(newUser._id);
@@ -51,8 +51,8 @@ export const signup = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      token,
       user: newUser,
+      token,
     });
   } catch (error) {
     console.error("Error in signup:", error);
@@ -127,7 +127,6 @@ export const getUser = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      token,
       user
     });
   } catch (error) {
