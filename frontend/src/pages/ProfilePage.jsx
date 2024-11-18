@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Profile = () => {
+const ProfilePage = () => {
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4">Profil</h2>
@@ -13,4 +13,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;
