@@ -1,14 +1,36 @@
-const express = require('express');
-const app = express();
-const dotenv = require('dotenv');
-const connectDB = require('./config/db');
+import express from 'express';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import matchRoutes from './routes/matchRoutes.js';
+import { connectDB } from './config/db.js';
 
 dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Connexion à la base de données
 connectDB();
 
+// Middleware pour parser le JSON
 app.use(express.json());
+app.use(cookieParser());
+app.use(cors(
+    {
+        origin : "http://localhost:5173",
+        credentials : true,
+    }
+)
 
-const PORT = process.env.PORT || 6000;
+)
+// Utilisation des routes
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/matches', matchRoutes);
+
 app.listen(PORT, () => {
-    console.log(`Serveur démarré sur le port ${PORT}`);
+    console.log('Server is running on port ' + PORT);
 });
