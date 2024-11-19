@@ -1,3 +1,7 @@
+Merci pour la clarification ! Voici la version corrigée du README, avec l'instruction correcte pour démarrer le frontend depuis le dossier **frontend** :
+
+---
+
 # 📚 BookMate
 
 **BookMate** est une application web de recommandation de livres, permettant aux utilisateurs de découvrir de nouvelles lectures en fonction de leurs goûts grâce à une interface de swipe inspirée de Tinder. Les utilisateurs peuvent :
@@ -10,7 +14,7 @@
 
 ## ⚙️ Prérequis
 
-Avant de commencer, assurez-vous d’avoir configuré :
+Avant de commencer, assurez-vous d’avoir installé :
 
 - **Node.js** (v14.x ou plus)
 - **MongoDB** pour le stockage des données
@@ -45,7 +49,7 @@ Le fichier `.env` doit se trouver à la racine du dossier **BookMate** (au même
 
 ```plaintext
 PORT=3000
-MONGO_URI=votre uri mongo
+MONGO_URI=mongodb://localhost:27017/bookmateDB
 GOOGLE_BOOKS_API_KEY=votre_google_books_api_key
 JWT_SECRET=votre_jwt_secret
 ```
@@ -64,11 +68,17 @@ Le serveur backend démarrera et sera accessible sur `http://localhost:3000` (ou
 
 ### 5. Démarrer le Frontend
 
-Depuis la racine du dossier **BookMate**, vous pouvez maintenant démarrer l'application frontend avec la commande suivante :
+1. Accédez au dossier **frontend** :
 
-```bash
-npm run dev
-```
+   ```bash
+   cd frontend
+   ```
+
+2. Lancez l'application frontend avec la commande suivante :
+
+   ```bash
+   npm run dev
+   ```
 
 Le frontend sera accessible sur `http://localhost:5173` (ou le port défini dans Vite).
 
@@ -107,4 +117,4 @@ Ce projet est sous licence MIT.
 
 ---
 
-Avec cette version, le processus d'installation des dépendances et de démarrage du projet est simplifié en exécutant `npm install` et `npm run dev` depuis la racine de **BookMate**.
+Avec cette version, le processus d'installation et de démarrage du projet est clarifié. Le frontend est démarré depuis le dossier **frontend** tandis que le backend est lancé depuis la racine du projet.
