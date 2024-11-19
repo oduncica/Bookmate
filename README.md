@@ -45,7 +45,7 @@ Le fichier `.env` doit se trouver à la racine du dossier **BookMate** (au même
 
 ```plaintext
 PORT=3000
-MONGO_URI=mongodb://localhost:27017/bookmateDB
+MONGO_URI=votre_mongo_db_uri
 GOOGLE_BOOKS_API_KEY=votre_google_books_api_key
 JWT_SECRET=votre_jwt_secret
 ```
