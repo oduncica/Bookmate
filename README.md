@@ -10,7 +10,7 @@
 
 ## ⚙️ Prérequis
 
-Avant de commencer, assurez-vous d’avoir installé :
+Avant de commencer, assurez-vous d’avoir configuré :
 
 - **Node.js** (v14.x ou plus)
 - **MongoDB** pour le stockage des données
@@ -29,54 +29,48 @@ git clone git@github.com:oduncica/bookmate.git
 cd bookmate
 ```
 
-### 2. Installation et Configuration Backend
+### 2. Installation des Dépendances
 
-1. Accédez au dossier backend :
-   ```bash
-   cd backend
-   ```
-2. Installez les dépendances :
-   ```bash
-   npm install
-   ```
-3. Créez un fichier `.env` dans le dossier backend avec les variables d'environnement nécessaires (voir section **Variables d’Environnement** ci-dessous).
-4. Lancez MongoDB pour que le backend puisse se connecter à la base de données.
-5. Démarrez le serveur :
-   ```bash
-   npm start
-   ```
-6. Une fois le serveur démarré, l'API sera accessible sur `http://localhost:5000` (ou le port défini dans le fichier `.env`).
+Installez les dépendances pour le **frontend** et le **backend** depuis la racine de **BookMate** :
 
-### 3. Installation et Configuration Frontend
+```bash
+npm install
+```
 
-1. Accédez au dossier frontend :
-   ```bash
-   cd ../frontend
-   ```
-2. Installez les dépendances :
-   ```bash
-   npm install
-   ```
-3. Démarrez l’application frontend avec Vite :
-   ```bash
-   npm run dev
-   ```
-4. L'application sera accessible sur `http://localhost:5173` (ou le port défini dans Vite).
+Cette commande va installer les dépendances pour le **backend** et le **frontend** dans les dossiers appropriés.
 
----
+### 3. Configuration du fichier `.env`
 
-## 🔑 Variables d’Environnement
-
-Dans le dossier **backend**, créez un fichier `.env` avec les informations de configuration suivantes :
+Le fichier `.env` doit se trouver à la racine du dossier **BookMate** (au même niveau que les dossiers **backend** et **frontend**). Créez ce fichier avec les informations suivantes :
 
 ```plaintext
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/bookmateDB
+PORT=3000
+MONGO_URI=votre uri mongo
 GOOGLE_BOOKS_API_KEY=votre_google_books_api_key
 JWT_SECRET=votre_jwt_secret
 ```
 
 Assurez-vous que MongoDB est en cours d'exécution pour que l'application puisse se connecter à la base de données.
+
+### 4. Démarrer le Backend
+
+Depuis la racine du dossier **BookMate**, lancez le serveur backend avec la commande suivante :
+
+```bash
+npm run dev
+```
+
+Le serveur backend démarrera et sera accessible sur `http://localhost:3000` (ou le port défini dans le fichier `.env`).
+
+### 5. Démarrer le Frontend
+
+Depuis la racine du dossier **BookMate**, vous pouvez maintenant démarrer l'application frontend avec la commande suivante :
+
+```bash
+npm run dev
+```
+
+Le frontend sera accessible sur `http://localhost:5173` (ou le port défini dans Vite).
 
 ---
 
@@ -110,3 +104,7 @@ Une documentation détaillée des endpoints de l'API sera fournie dans une proch
 ## 📝 Licence
 
 Ce projet est sous licence MIT.
+
+---
+
+Avec cette version, le processus d'installation des dépendances et de démarrage du projet est simplifié en exécutant `npm install` et `npm run dev` depuis la racine de **BookMate**.
