@@ -1,7 +1,3 @@
-Merci pour la clarification ! Voici la version corrigée du README, avec l'instruction correcte pour démarrer le frontend depuis le dossier **frontend** :
-
----
-
 # 📚 BookMate
 
 **BookMate** est une application web de recommandation de livres, permettant aux utilisateurs de découvrir de nouvelles lectures en fonction de leurs goûts grâce à une interface de swipe inspirée de Tinder. Les utilisateurs peuvent :
@@ -114,7 +110,3 @@ Une documentation détaillée des endpoints de l'API sera fournie dans une proch
 ## 📝 Licence
 
 Ce projet est sous licence MIT.
-
----
-
-Avec cette version, le processus d'installation et de démarrage du projet est clarifié. Le frontend est démarré depuis le dossier **frontend** tandis que le backend est lancé depuis la racine du projet.
