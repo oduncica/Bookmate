@@ -1,13 +1,13 @@
-import express from "express";
+import express from 'express';
+import { getBookSuggestions, likeBook, dislikeBook, getMatches } from '../controllers/matchController.js';
 import { protectedRoute } from '../middleware/auth.js';
-import { getMatches, getUserProfiles, swipeLeft, swipeRight } from "../controllers/matchController.js";
 
 const router = express.Router();
 
-router.post("/swipe-right/:likedUserId", protectedRoute, swipeRight);
-router.post("/swipe-left/:dislikedUserId", protectedRoute, swipeLeft);
+router.get('/suggestions', protectedRoute, getBookSuggestions);
+router.post('/like/:bookId', protectedRoute, likeBook);
+router.post('/dislike/:bookId', protectedRoute, dislikeBook);
+router.get('/matches', protectedRoute, getMatches);
 
-router.get("/", protectedRoute, getMatches);
-router.get("/user-profiles", protectedRoute, getUserProfiles);
+export default router;
 
-export default router; 
