@@ -4,14 +4,32 @@ import Book from '../models/Book.js';
 export const addToReadBooks = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    }
+
     const book = req.body;
 
     const existingBook = await Book.findOne({ googleBookId: book.googleBookId });
+    let bookId;
     if (!existingBook) {
-      const newBook = await Book.create(book);
-      user.toReadBooks.push(newBook._id);
+      const newBook = await Book.create({
+        googleBookId: book.googleBookId,
+        title: book.title,
+        authors: book.authors,
+        description: book.description,
+        image: book.image,
+        publishedDate: book.publishedDate,
+        categories: book.categories,
+        userId: user._id, // Ajout du champ userId
+      });
+      bookId = newBook._id;
     } else {
-      user.toReadBooks.push(existingBook._id);
+      bookId = existingBook._id;
+    }
+
+    if (!user.toReadBooks.includes(bookId)) {
+      user.toReadBooks.push(bookId);
     }
 
     await user.save();
@@ -32,14 +50,32 @@ export const addToReadBooks = async (req, res) => {
 export const addReadBooks = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    }
+
     const book = req.body;
 
     const existingBook = await Book.findOne({ googleBookId: book.googleBookId });
+    let bookId;
     if (!existingBook) {
-      const newBook = await Book.create(book);
-      user.readBooks.push(newBook._id);
+      const newBook = await Book.create({
+        googleBookId: book.googleBookId,
+        title: book.title,
+        authors: book.authors,
+        description: book.description,
+        image: book.image,
+        publishedDate: book.publishedDate,
+        categories: book.categories,
+        userId: user._id, // Ajout du champ userId
+      });
+      bookId = newBook._id;
     } else {
-      user.readBooks.push(existingBook._id);
+      bookId = existingBook._id;
+    }
+
+    if (!user.readBooks.includes(bookId)) {
+      user.readBooks.push(bookId);
     }
 
     await user.save();
@@ -50,6 +86,52 @@ export const addReadBooks = async (req, res) => {
     });
   } catch (error) {
     console.log("Error in addReadBooks: ", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+export const addDislikedBook = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    }
+
+    const book = req.body;
+
+    const existingBook = await Book.findOne({ googleBookId: book.googleBookId });
+    let bookId;
+    if (!existingBook) {
+      const newBook = await Book.create({
+        googleBookId: book.googleBookId,
+        title: book.title,
+        authors: book.authors,
+        description: book.description,
+        image: book.image,
+        publishedDate: book.publishedDate,
+        categories: book.categories,
+        userId: user._id, // Ajout du champ userId
+      });
+      bookId = newBook._id;
+    } else {
+      bookId = existingBook._id;
+    }
+
+    if (!user.dislikedBooks.includes(bookId)) {
+      user.dislikedBooks.push(bookId);
+    }
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      dislikedBooks: user.dislikedBooks,
+    });
+  } catch (error) {
+    console.log("Error in addDislikedBook: ", error);
     res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -89,33 +171,6 @@ export const getReadBooks = async (req, res) => {
   }
 };
 
-export const updateBook = async (req, res) => {
-  try {
-    const { bookId } = req.params;
-    const bookData = req.body;
-
-    // Rechercher le livre par googleBookId au lieu de _id
-    const book = await Book.findOneAndUpdate({ googleBookId: bookId }, bookData, { new: true });
-
-    if (!book) {
-      return res.status(404).json({
-        success: false,
-        message: "Book not found",
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      book,
-    });
-  } catch (error) {
-    console.log("Error in updateBook: ", error);
-    res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-};
 
 export const removeFromToReadBooks = async (req, res) => {
   try {
@@ -156,5 +211,50 @@ export const removeFromReadBooks = async (req, res) => {
       success: false,
       message: "Internal server error",
     });
+  }
+};
+
+// Ajouter un livre à la catégorie "Pas intéressé"
+
+// Lire les livres de la catégorie "Pas intéressé"
+export const getDislikedBooks = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).populate('dislikedBooks');
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    }
+
+    res.status(200).json({
+      success: true,
+      dislikedBooks: user.dislikedBooks,
+    });
+  } catch (error) {
+    console.log("Error in getDislikedBooks: ", error);
+    res.status(500).json({
+      success: false,
+      message: 'Erreur serveur',
+      error,
+    });
+  }
+};
+
+// Supprimer un livre de la catégorie "Pas intéressé"
+export const removeDislikedBook = async (req, res) => {
+  const { bookId } = req.params;
+
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    }
+
+    user.dislikedBooks = user.dislikedBooks.filter(
+      (id) => id.toString() !== bookId
+    );
+    await user.save();
+
+    res.status(200).json({ message: 'Livre supprimé de la catégorie "Pas intéressé"' });
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur serveur', error });
   }
 };
