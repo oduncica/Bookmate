@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const axiosInstance = axios.create({
+ const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000/api',
   withCredentials: true, // Assurez-vous que les cookies sont envoyés avec chaque requête
 });
@@ -15,3 +15,5 @@ axiosInstance.interceptors.request.use((config) => {
 }, (error) => {
   return Promise.reject(error);
 });
+
+export default axiosInstance;
