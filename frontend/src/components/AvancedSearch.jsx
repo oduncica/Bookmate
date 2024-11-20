@@ -3,7 +3,7 @@ import { FaSearch } from 'react-icons/fa';
 import BookCard from './BookCard';
 import useLibraryStore from '../store/useLibraryStore'; // Importez le store de la bibliothèque
 
-const GOOGLE_BOOKS_API_KEY = "AIzaSyDWPZhU3bhsZDl_CgpGjaaKiXOCt4xoRJU";
+// const GOOGLE_BOOKS_API_KEY = "";
 
 const AdvancedSearch = () => {
   const [query, setQuery] = useState('');
