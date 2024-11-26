@@ -7,13 +7,15 @@ export const useAuthStore = create((set) => ({
   checkingAuth: true,
   loading: false,
 
-  signup: async (signupData) => {
+  signup: async (signupData, navigate) => {
     try {
       set({ loading: true });
       const res = await axiosInstance.post("/auth/signup", signupData);
       set({ authUser: res.data.user });
       localStorage.setItem('jwt', res.data.token); // Stocker le token JWT
+      await axiosInstance.post('/auth/preferences', { bookPreferences: signupData.bookPreferences });
       toast.success("Account created successfully");
+      navigate("/home"); // Rediriger vers la page d'accueil
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");
     } finally {
@@ -52,8 +54,14 @@ export const useAuthStore = create((set) => ({
 
   checkAuth: async () => {
     try {
-      const res = await axiosInstance.get("/auth/me");
-      set({ authUser: res.data.user });
+      const token = localStorage.getItem('jwt');
+      if (token) {
+        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        const res = await axiosInstance.get("/auth/me");
+        set({ authUser: res.data.user });
+      } else {
+        set({ authUser: null });
+      }
     } catch (error) {
       set({ authUser: null });
       console.log(error);

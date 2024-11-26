@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
     },
     bookPreferences: {
       type: [String],
-      required: true,
+      // required: true,
     },
     likedBooks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }],
     dislikedBooks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }],
