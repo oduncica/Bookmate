@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 import axios from '../lib/axios';
+import toast from "react-hot-toast";
+
 
 export const useSuggestionsStore = create((set) => ({
   suggestions: [],
@@ -18,8 +20,10 @@ export const useSuggestionsStore = create((set) => ({
       set((state) => ({
         suggestions: state.suggestions.filter((book) => book.id !== bookId),
       }));
+      toast.success('Livre ajouté à la catégorie "à lire"');
     } catch (error) {
       console.error('Erreur lors de l\'ajout du livre à la catégorie "à lire":', error.response?.data?.message || error.message);
+      toast.error('Erreur lors de l\'ajout du livre à la catégorie "à lire"');
     }
   },
   dislikeBook: async (bookId) => {
@@ -28,8 +32,10 @@ export const useSuggestionsStore = create((set) => ({
       set((state) => ({
         suggestions: state.suggestions.filter((book) => book.id !== bookId),
       }));
+      toast.success('Livre ajouté à la catégorie "Pas intéressé"');
     } catch (error) {
       console.error('Erreur lors de l\'ajout du livre à la catégorie "Pas intéressé":', error.response?.data?.message || error.message);
+      toast.error('Erreur lors de l\'ajout du livre à la catégorie "Pas intéressé"');
     }
   },
   readBook: async (bookId) => {
@@ -38,8 +44,12 @@ export const useSuggestionsStore = create((set) => ({
       set((state) => ({
         suggestions: state.suggestions.filter((book) => book.id !== bookId),
       }));
+      toast.success('Livre ajouté à la catégorie "Lu"');
     } catch (error) {
       console.error('Erreur lors de l\'ajout du livre à la catégorie "Lu":', error.response?.data?.message || error.message);
+      toast.error('Erreur lors de l\'ajout du livre à la catégorie "Lu"');
     }
   },
 }));
+
+export default useSuggestionsStore;

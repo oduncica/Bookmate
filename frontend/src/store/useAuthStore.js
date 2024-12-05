@@ -52,6 +52,17 @@ export const useAuthStore = create((set) => ({
     }
   },
 
+  updateProfile: async (profileData) => {
+    try {
+      const response = await axiosInstance.put('/users/update', profileData);
+      set({ user: response.data });
+      toast.success('Profil mis à jour avec succès');
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du profil:', error.response?.data?.message || error.message);
+      toast.error('Erreur lors de la mise à jour du profil');
+    }
+  },
+
   checkAuth: async () => {
     try {
       const token = localStorage.getItem('jwt');

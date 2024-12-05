@@ -6,7 +6,7 @@ const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-gradient-to-br from-red-500 to-pink-500 p-4'>
+    <div className='min-h-screen flex items-center justify-center bg-[#3A3A64] p-4'>
       <div className='w-full max-w-md'>
         <h2 className='text-center text-3xl font-extrabold text-white mb-8'>
           {isLogin ? 'Connexion à BookMate' : 'Créer un compte sur BookMate'}

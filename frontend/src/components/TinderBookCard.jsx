@@ -33,16 +33,16 @@ const TinderBookCard = ({ book, onLike, onDislike, onRead }) => {
           <FaHeartBroken />
         </button>
         <button
-          onClick={() => onLike(book.id)}
+          onClick={() => onRead(book.id)}
           className="bg-[#67AAB3] hover:bg-teal-700 text-white font-bold p-4 rounded-full flex items-center justify-center text-2xl"
-          title="À lire"
+          title="Lu"
         >
           <FaBookOpen />
         </button>
         <button
-          onClick={() => onRead(book.id)}
+          onClick={() => onLike(book.id)}
           className="bg-[#EE753E] hover:bg-orange-700 text-white font-bold p-4 rounded-full flex items-center justify-center text-2xl"
-          title="Lu"
+          title="À lire"
         >
           <FaFire />
         </button>

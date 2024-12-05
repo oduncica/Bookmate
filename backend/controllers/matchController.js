@@ -144,12 +144,15 @@ export const readBook = async (req, res) => {
     user.readBooks.push(book._id);
     await user.save();
 
-    res.status(200).json({ message: 'Livre ajouté à la catégorie "Lu"' });
+    res.status(200).json({ message: 'Livre ajouté à la catégorie "Lu -"' });
   } catch (error) {
     console.error('Erreur lors de l\'ajout du livre à la catégorie "Lu":', error);
     res.status(500).json({ message: 'Erreur lors de l\'ajout du livre à la catégorie "Lu"', error });
   }
 };
+
+
+
 
 export const getMatches = async (req, res) => {
   try {

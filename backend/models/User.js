@@ -16,6 +16,9 @@ const userSchema = new mongoose.Schema(
       type: [String],
       // required: true,
     },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
+    
     likedBooks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }],
     dislikedBooks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }],
     toReadBooks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }],
