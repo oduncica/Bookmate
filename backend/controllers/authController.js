@@ -11,7 +11,7 @@ export const signup = async (req, res) => {
   const { email, password, bookPreferences } = req.body; // Assurez-vous que le nom du champ est correct
 
   try {
-    if (!email || !password || !bookPreferences) {
+    if (!email || !password ) {
       return res.status(400).json({
         success: false,
         message: "All fields are required",

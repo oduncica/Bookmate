@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import BookCard from './BookCard';
 import useLibraryStore from '../store/useLibraryStore'; // Importez le store de la bibliothèque
+import Modal from 'react-modal';
 
-// const GOOGLE_BOOKS_API_KEY = "";
+const GOOGLE_BOOKS_API_KEY = "AIzaSyDWPZhU3bhsZDl_CgpGjaaKiXOCt4xoRJU";
 
 const AdvancedSearch = () => {
   const [query, setQuery] = useState('');
@@ -70,12 +71,16 @@ const AdvancedSearch = () => {
     }
   };
 
-  const showBookDetails = (book) => {
-    setSelectedBook(book.volumeInfo);
+  const openModal = (book) => {
+    setSelectedBook(book);
+  };
+
+  const closeModal = () => {
+    setSelectedBook(null);
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 bg-[#fde9ad] min-h-screen">
       <h1 className="text-3xl font-bold text-center mb-8">Recherche avancée de livres</h1>
       <div className="search-container mb-8">
         <div className="flex items-center mb-4">
@@ -160,23 +165,41 @@ const AdvancedSearch = () => {
             onAddToRead={() => addToLibrary(book, 'toRead')}
             onAddToReadBooks={() => addToLibrary(book, 'read')}
             onAddToDislikedBooks={() => addToLibrary(book, 'disliked')}
-            onShowDetails={() => showBookDetails(book)}
+            onShowDetails={() => openModal(book)}
             isLibraryView={false}
           />
         ))}
       </div>
       {selectedBook && (
-        <div className="book-detail mt-8 p-4 border border-gray-300 rounded-lg bg-gray-50">
-          <h2 className="text-2xl font-bold mb-4">Détails du livre</h2>
-          <div className="flex flex-col md:flex-row">
-            <img src={selectedBook.imageLinks?.thumbnail || 'https://via.placeholder.com/128x192?text=No+Image'} alt="Couverture" className="mb-4 md:mb-0 md:mr-4" />
-            <div>
-              <h3 className="text-xl font-bold">{selectedBook.title}</h3>
-              <p className="text-gray-700 mb-2"><strong>Auteurs :</strong> {selectedBook.authors?.join(', ') || 'Auteur inconnu'}</p>
-              <p className="text-gray-700 mb-2"><strong>Description :</strong> {selectedBook.description || 'Aucune description disponible'}</p>
+        <Modal
+          isOpen={!!selectedBook}
+          onRequestClose={closeModal}
+          contentLabel="Détails du Livre"
+          className="modal bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto mt-20"
+          overlayClassName="overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+        >
+          <div className="p-4">
+            <h2 className="text-2xl font-bold mb-4">{selectedBook.volumeInfo.title}</h2>
+            <p className="text-gray-700 mb-2">
+              {Array.isArray(selectedBook.volumeInfo.authors) ? selectedBook.volumeInfo.authors.join(', ') : 'Auteur inconnu'}
+            </p>
+            <p className="text-gray-700 mb-2">{selectedBook.volumeInfo.publishedDate}</p>
+            <p className="text-gray-700 mb-4">{selectedBook.volumeInfo.description}</p>
+            <a
+              href={`https://books.google.com/books?id=${selectedBook.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline"
+            >
+              Voir sur Google Books
+            </a>
+            <div className="mt-4">
+              <button onClick={closeModal} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                Fermer
+              </button>
             </div>
           </div>
-        </div>
+        </Modal>
       )}
     </div>
   );

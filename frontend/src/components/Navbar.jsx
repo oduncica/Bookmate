@@ -1,28 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
+import { FaHome, FaBook, FaSearch, FaUser } from 'react-icons/fa';
 
 const Navbar = () => {
-  const { authUser, logout } = useAuthStore();
+  const { authUser } = useAuthStore();
 
   return (
-    <nav className="bg-blue-500 p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="text-white font-bold text-xl">
-          <Link to="/">Bookmate</Link>
-        </div>
-        <div className="flex space-x-4">
-          <Link to="/home" className="text-white hover:text-gray-200">Home</Link>
-          {authUser && <Link to="/search" className="text-white hover:text-gray-200">Search</Link>}
-          {authUser && <Link to="/library" className="text-white hover:text-gray-200">Library</Link>}
-          {authUser ? (
-            <button onClick={logout} className="text-white hover:text-gray-200">Logout</button>
-          ) : (
-            <Link to="/auth" className="text-white hover:text-gray-200">Login</Link>
-          )}
-        </div>
-      </div>
-    </nav>
+    <>
+      <nav className="fixed bottom-0 left-0 right-0 bg-[#FFEED6] p-4 flex justify-between items-center">
+        <Link to="/" className="text-black hover:text-gray-700 flex flex-col items-center">
+          <FaHome className="mb-1" />
+          Home
+        </Link>
+        <Link to="/library" className="text-black hover:text-gray-700 flex flex-col items-center">
+          <FaBook className="mb-1" />
+          Biblio
+        </Link>
+        <Link to="/search" className="text-black hover:text-gray-700 flex flex-col items-center">
+          <FaSearch className="mb-1" />
+          Recherche
+        </Link>
+        <Link to="/profile" className="text-black hover:text-gray-700 flex flex-col items-center">
+          <FaUser className="mb-1" />
+          Profil
+        </Link>
+      </nav>
+    </>
   );
 };
 

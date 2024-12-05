@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { FaBook, FaCheck, FaTimes } from 'react-icons/fa';
 import useLibraryStore from '../store/useLibraryStore';
 import BookCard from '../components/BookCard';
-import AddBookForm from '../components/AddBookForm';
 
 const LibraryView = () => {
   const {
@@ -12,15 +11,11 @@ const LibraryView = () => {
     fetchToReadBooks,
     fetchReadBooks,
     fetchDislikedBooks,
-    addToReadBook,
-    addReadBook,
-    updateBook,
     deleteToReadBook,
     deleteReadBook,
     deleteDislikedBook,
   } = useLibraryStore();
 
-  const [showAddForm, setShowAddForm] = useState(false);
   const [activeTab, setActiveTab] = useState('toRead');
 
   useEffect(() => {
@@ -29,12 +24,6 @@ const LibraryView = () => {
     fetchDislikedBooks();
   }, [fetchToReadBooks, fetchReadBooks, fetchDislikedBooks]);
 
-  const handleUpdate = async (book) => {
-    const updatedTitle = prompt('Nouveau titre du livre:', book.title);
-    if (updatedTitle) {
-      await updateBook(book._id, { ...book, title: updatedTitle });
-    }
-  };
 
   const handleDelete = async (bookId, category) => {
     const confirmDelete = window.confirm('Êtes-vous sûr de vouloir supprimer ce livre?');

@@ -158,6 +158,10 @@ export const getToReadBooks = async (req, res) => {
 export const getReadBooks = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate('readBooks');
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    }
+
     res.status(200).json({
       success: true,
       readBooks: user.readBooks,
@@ -170,7 +174,6 @@ export const getReadBooks = async (req, res) => {
     });
   }
 };
-
 
 export const removeFromToReadBooks = async (req, res) => {
   try {

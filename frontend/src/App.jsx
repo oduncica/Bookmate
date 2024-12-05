@@ -7,6 +7,7 @@ import AuthPage from "./pages/AuthPage";
 import ProfilePage from "./pages/ProfilePage";
 import LibraryView from "./pages/LibraryView";
 import AdvancedSearch from "./components/AvancedSearch";
+
 import Navbar from "./components/Navbar";
 import { useAuthStore } from "./store/useAuthStore";
 
@@ -29,6 +30,8 @@ function App() {
           <Route path="/profile" element={authUser ? <ProfilePage /> : <Navigate to="/auth" />} />
           <Route path="/library" element={authUser ? <LibraryView /> : <Navigate to="/auth" />} />
           <Route path="/search" element={<AdvancedSearch />} />
+
+
         </Routes>
       </div>
       <Toaster />
