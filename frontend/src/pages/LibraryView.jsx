@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { FaBook, FaCheck, FaTimes } from 'react-icons/fa';
-import useLibraryStore from '../store/useLibraryStore';
-import BookCard from '../components/BookCard';
+import React, { useEffect, useState } from "react";
+import { FaBook, FaCheck, FaTimes } from "react-icons/fa";
+import useLibraryStore from "../store/useLibraryStore";
+import BookCard from "../components/BookCard";
 
 const LibraryView = () => {
   const {
@@ -16,7 +16,8 @@ const LibraryView = () => {
     deleteDislikedBook,
   } = useLibraryStore();
 
-  const [activeTab, setActiveTab] = useState('toRead');
+  const [activeTab, setActiveTab] = useState("toRead");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetchToReadBooks();
@@ -24,71 +25,95 @@ const LibraryView = () => {
     fetchDislikedBooks();
   }, [fetchToReadBooks, fetchReadBooks, fetchDislikedBooks]);
 
-
   const handleDelete = async (bookId, category) => {
-    const confirmDelete = window.confirm('Êtes-vous sûr de vouloir supprimer ce livre?');
+    const confirmDelete = window.confirm(
+      "Êtes-vous sûr de vouloir supprimer ce livre?"
+    );
     if (confirmDelete) {
-      if (category === 'toRead') {
+      if (category === "toRead") {
         await deleteToReadBook(bookId);
-      } else if (category === 'read') {
+      } else if (category === "read") {
         await deleteReadBook(bookId);
-      } else if (category === 'disliked') {
+      } else if (category === "disliked") {
         await deleteDislikedBook(bookId);
       }
     }
   };
 
+  const filteredBooks = (books) => {
+    return books.filter((book) =>
+      book.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">Ma Bibliothèque</h1>
+      <div className="mb-8 flex justify-center">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Rechercher un livre..."
+          className="w-full p-2 border border-gray-300 rounded-lg"
+        />
+      </div>
       <div className="tabs mb-8 flex justify-center">
         <button
-          className={`tab ${activeTab === 'toRead' ? 'active' : ''} flex items-center px-4 py-2 mx-2 rounded-lg border border-gray-300`}
-          onClick={() => setActiveTab('toRead')}
+          className={`tab ${
+            activeTab === "toRead" ? "bg-yellow-200" : ""
+          } flex items-center px-4 py-2 mx-2 rounded-lg border border-gray-300`}
+          onClick={() => setActiveTab("toRead")}
         >
-          <FaBook className="mr-2" />
-          À lire
+          <FaBook className="mr-2" />À lire
         </button>
         <button
-          className={`tab ${activeTab === 'read' ? 'active' : ''} flex items-center px-4 py-2 mx-2 rounded-lg border border-gray-300`}
-          onClick={() => setActiveTab('read')}
+          className={`tab ${
+            activeTab === "read" ? "bg-yellow-200" : ""
+          } flex items-center px-4 py-2 mx-2 rounded-lg border border-gray-300`}
+          onClick={() => setActiveTab("read")}
         >
           <FaCheck className="mr-2" />
           Lu
         </button>
         <button
-          className={`tab ${activeTab === 'disliked' ? 'active' : ''} flex items-center px-4 py-2 mx-2 rounded-lg border border-gray-300`}
-          onClick={() => setActiveTab('disliked')}
+          className={`tab ${
+            activeTab === "disliked" ? "bg-yellow-200" : ""
+          } flex items-center px-4 py-2 mx-2 rounded-lg border border-gray-300`}
+          onClick={() => setActiveTab("disliked")}
         >
           <FaTimes className="mr-2" />
           Pas intéressé
         </button>
       </div>
       <div className="book-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {activeTab === 'toRead' && toReadBooks.map((book) => (
-          <BookCard
-            key={book._id}
-            book={book}
-            onDelete={() => handleDelete(book._id, 'toRead')}
-            isLibraryView={true}
-          />
-        ))}
-        {activeTab === 'read' && readBooks.map((book) => (
-          <BookCard
-            key={book._id}
-            book={book}
-            onDelete={() => handleDelete(book._id, 'read')}
-            isLibraryView={true}
-          />
-        ))}
-        {activeTab === 'disliked' && dislikedBooks.map((book) => (
-          <BookCard
-            key={book._id}
-            book={book}
-            onDelete={() => handleDelete(book._id, 'disliked')}
-            isLibraryView={true}
-          />
-        ))}
+        {activeTab === "toRead" &&
+          filteredBooks(toReadBooks).map((book) => (
+            <BookCard
+              key={book._id}
+              book={book}
+              onDelete={() => handleDelete(book._id, "toRead")}
+              isLibraryView={true}
+            />
+          ))}
+        {activeTab === "read" &&
+          filteredBooks(readBooks).map((book) => (
+            <BookCard
+              key={book._id}
+              book={book}
+              onDelete={() => handleDelete(book._id, "read")}
+              isLibraryView={true}
+            />
+          ))}
+        {activeTab === "disliked" &&
+          filteredBooks(dislikedBooks).map((book) => (
+            <BookCard
+              key={book._id}
+              book={book}
+              onDelete={() => handleDelete(book._id, "disliked")}
+              isLibraryView={true}
+            />
+          ))}
       </div>
     </div>
   );

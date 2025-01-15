@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import axiosInstance from '../lib/axios'; // Importez l'instance Axios par défaut
-import toast from 'react-hot-toast';
+import { create } from "zustand";
+import axiosInstance from "../lib/axios"; // Importez l'instance Axios par défaut
+import toast from "react-hot-toast";
 
 const useLibraryStore = create((set) => ({
   toReadBooks: [],
@@ -11,10 +11,10 @@ const useLibraryStore = create((set) => ({
   fetchToReadBooks: async () => {
     try {
       set({ loading: true });
-      const response = await axiosInstance.get('/library/to-read');
+      const response = await axiosInstance.get("/library/to-read");
       set({ toReadBooks: response.data.toReadBooks });
     } catch (error) {
-      toast.error('Error fetching to-read books');
+      toast.error("Error fetching to-read books");
     } finally {
       set({ loading: false });
     }
@@ -23,10 +23,10 @@ const useLibraryStore = create((set) => ({
   fetchReadBooks: async () => {
     try {
       set({ loading: true });
-      const response = await axiosInstance.get('/library/read');
+      const response = await axiosInstance.get("/library/read");
       set({ readBooks: response.data.readBooks });
     } catch (error) {
-      toast.error('Error fetching read books');
+      toast.error("Error fetching read books");
     } finally {
       set({ loading: false });
     }
@@ -35,10 +35,10 @@ const useLibraryStore = create((set) => ({
   fetchDislikedBooks: async () => {
     try {
       set({ loading: true });
-      const response = await axiosInstance.get('/library/dislike');
+      const response = await axiosInstance.get("/library/dislike");
       set({ dislikedBooks: response.data.dislikedBooks });
     } catch (error) {
-      toast.error('Error fetching disliked books');
+      toast.error("Error fetching disliked books");
     } finally {
       set({ loading: false });
     }
@@ -47,8 +47,10 @@ const useLibraryStore = create((set) => ({
   addToReadBook: async (book) => {
     try {
       set({ loading: true });
-      const response = await axiosInstance.post('/library/to-read', book);
-      set((state) => ({ toReadBooks: [...state.toReadBooks, response.data.book] }));
+      const response = await axiosInstance.post("/library/to-read", book);
+      set((state) => ({
+        toReadBooks: [...state.toReadBooks, response.data.book],
+      }));
       toast.success('Book added to "To Read"');
     } catch (error) {
       toast.error('Error adding book to "To Read"');
@@ -60,7 +62,7 @@ const useLibraryStore = create((set) => ({
   addReadBook: async (book) => {
     try {
       set({ loading: true });
-      const response = await axiosInstance.post('/library/read', book);
+      const response = await axiosInstance.post("/library/read", book);
       set((state) => ({ readBooks: [...state.readBooks, response.data.book] }));
       toast.success('Book added to "Read"');
     } catch (error) {
@@ -73,8 +75,10 @@ const useLibraryStore = create((set) => ({
   addDislikedBook: async (book) => {
     try {
       set({ loading: true });
-      const response = await axiosInstance.post('/library/dislike', book);
-      set((state) => ({ dislikedBooks: [...state.dislikedBooks, response.data.book] }));
+      const response = await axiosInstance.post("/library/dislike", book);
+      set((state) => ({
+        dislikedBooks: [...state.dislikedBooks, response.data.book],
+      }));
       toast.success('Book added to "Disliked"');
     } catch (error) {
       toast.error('Error adding book to "Disliked"');
@@ -86,15 +90,24 @@ const useLibraryStore = create((set) => ({
   updateBook: async (bookId, bookData) => {
     try {
       set({ loading: true });
-      const response = await axiosInstance.put(`/library/book/${bookId}`, bookData);
+      const response = await axiosInstance.put(
+        `/library/book/${bookId}`,
+        bookData
+      );
       set((state) => ({
-        toReadBooks: state.toReadBooks.map((book) => (book._id === bookId ? response.data.book : book)),
-        readBooks: state.readBooks.map((book) => (book._id === bookId ? response.data.book : book)),
-        dislikedBooks: state.dislikedBooks.map((book) => (book._id === bookId ? response.data.book : book)),
+        toReadBooks: state.toReadBooks.map((book) =>
+          book._id === bookId ? response.data.book : book
+        ),
+        readBooks: state.readBooks.map((book) =>
+          book._id === bookId ? response.data.book : book
+        ),
+        dislikedBooks: state.dislikedBooks.map((book) =>
+          book._id === bookId ? response.data.book : book
+        ),
       }));
-      toast.success('Book updated successfully');
+      toast.success("Book updated successfully");
     } catch (error) {
-      toast.error('Error updating book');
+      toast.error("Error updating book");
     } finally {
       set({ loading: false });
     }
@@ -104,7 +117,9 @@ const useLibraryStore = create((set) => ({
     try {
       set({ loading: true });
       await axiosInstance.delete(`/library/to-read/${bookId}`);
-      set((state) => ({ toReadBooks: state.toReadBooks.filter((book) => book._id !== bookId) }));
+      set((state) => ({
+        toReadBooks: state.toReadBooks.filter((book) => book._id !== bookId),
+      }));
       toast.success('Book removed from "To Read"');
     } catch (error) {
       toast.error('Error removing book from "To Read"');
@@ -117,7 +132,9 @@ const useLibraryStore = create((set) => ({
     try {
       set({ loading: true });
       await axiosInstance.delete(`/library/read/${bookId}`);
-      set((state) => ({ readBooks: state.readBooks.filter((book) => book._id !== bookId) }));
+      set((state) => ({
+        readBooks: state.readBooks.filter((book) => book._id !== bookId),
+      }));
       toast.success('Book removed from "Read"');
     } catch (error) {
       toast.error('Error removing book from "Read"');
@@ -130,7 +147,11 @@ const useLibraryStore = create((set) => ({
     try {
       set({ loading: true });
       await axiosInstance.delete(`/library/dislike/${bookId}`);
-      set((state) => ({ dislikedBooks: state.dislikedBooks.filter((book) => book._id !== bookId) }));
+      set((state) => ({
+        dislikedBooks: state.dislikedBooks.filter(
+          (book) => book._id !== bookId
+        ),
+      }));
       toast.success('Book removed from "Disliked"');
     } catch (error) {
       toast.error('Error removing book from "Disliked"');
