@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { FaSearch } from 'react-icons/fa';
-import BookCard from './BookCard';
-import useLibraryStore from '../store/useLibraryStore'; // Importez le store de la bibliothèque
-import Modal from 'react-modal';
+import React, { useState } from "react";
+import { FaSearch } from "react-icons/fa";
+import BookCard from "./BookCard";
+import useLibraryStore from "../store/useLibraryStore";
+import Modal from "react-modal";
 
 const GOOGLE_BOOKS_API_KEY = "AIzaSyDWPZhU3bhsZDl_CgpGjaaKiXOCt4xoRJU";
 
 const AdvancedSearch = () => {
-  const [query, setQuery] = useState('');
-  const [language, setLanguage] = useState('');
-  const [type, setType] = useState('');
-  const [publishedAfter, setPublishedAfter] = useState('');
-  const [publishedBefore, setPublishedBefore] = useState('');
+  const [query, setQuery] = useState("");
+  const [language, setLanguage] = useState("");
+  const [type, setType] = useState("");
+  const [publishedAfter, setPublishedAfter] = useState("");
+  const [publishedBefore, setPublishedBefore] = useState("");
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
 
@@ -40,7 +40,7 @@ const AdvancedSearch = () => {
       const data = await response.json();
       setBooks(data.items || []);
     } catch (error) {
-      console.error('Erreur de recherche:', error);
+      console.error("Erreur de recherche:", error);
     }
   };
 
@@ -56,18 +56,21 @@ const AdvancedSearch = () => {
     };
 
     try {
-      if (category === 'toRead') {
+      if (category === "toRead") {
         await addToReadBook(bookData);
         alert('Livre ajouté à la catégorie "à lire"');
-      } else if (category === 'read') {
+      } else if (category === "read") {
         await addReadBook(bookData);
         alert('Livre ajouté à la catégorie "Lu"');
-      } else if (category === 'disliked') {
+      } else if (category === "disliked") {
         await addDislikedBook(bookData);
         alert('Livre ajouté à la catégorie "Pas intéressé"');
       }
     } catch (error) {
-      console.error(`Erreur lors de l'ajout du livre à la catégorie "${category}":`, error);
+      console.error(
+        `Erreur lors de l'ajout du livre à la catégorie "${category}":`,
+        error
+      );
     }
   };
 
@@ -81,7 +84,9 @@ const AdvancedSearch = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 bg-[#fde9ad] min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-8">Recherche avancée de livres</h1>
+      <h1 className="text-3xl font-bold text-center mb-8">
+        Recherche avancée de livres
+      </h1>
       <div className="search-container mb-8">
         <div className="flex items-center mb-4">
           <input
@@ -101,7 +106,9 @@ const AdvancedSearch = () => {
         </div>
         <div className="search-filters grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="language" className="block text-gray-700">Langue :</label>
+            <label htmlFor="language" className="block text-gray-700">
+              Langue :
+            </label>
             <select
               id="language"
               value={language}
@@ -115,7 +122,9 @@ const AdvancedSearch = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="type" className="block text-gray-700">Type de contenu :</label>
+            <label htmlFor="type" className="block text-gray-700">
+              Type de contenu :
+            </label>
             <select
               id="type"
               value={type}
@@ -128,7 +137,9 @@ const AdvancedSearch = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="publishedAfter" className="block text-gray-700">Publié après :</label>
+            <label htmlFor="publishedAfter" className="block text-gray-700">
+              Publié après :
+            </label>
             <input
               type="date"
               id="publishedAfter"
@@ -138,7 +149,9 @@ const AdvancedSearch = () => {
             />
           </div>
           <div>
-            <label htmlFor="publishedBefore" className="block text-gray-700">Publié avant :</label>
+            <label htmlFor="publishedBefore" className="block text-gray-700">
+              Publié avant :
+            </label>
             <input
               type="date"
               id="publishedBefore"
@@ -158,13 +171,13 @@ const AdvancedSearch = () => {
               googleBookId: book.id,
               title: book.volumeInfo.title,
               authors: book.volumeInfo.authors || [],
-              description: book.volumeInfo.description || '',
-              image: book.volumeInfo.imageLinks?.thumbnail || '',
+              description: book.volumeInfo.description || "",
+              image: book.volumeInfo.imageLinks?.thumbnail || "",
               categories: book.volumeInfo.categories || [],
             }}
-            onAddToRead={() => addToLibrary(book, 'toRead')}
-            onAddToReadBooks={() => addToLibrary(book, 'read')}
-            onAddToDislikedBooks={() => addToLibrary(book, 'disliked')}
+            onAddToRead={() => addToLibrary(book, "toRead")}
+            onAddToReadBooks={() => addToLibrary(book, "read")}
+            onAddToDislikedBooks={() => addToLibrary(book, "disliked")}
             onShowDetails={() => openModal(book)}
             isLibraryView={false}
           />
@@ -179,12 +192,20 @@ const AdvancedSearch = () => {
           overlayClassName="overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
         >
           <div className="p-4">
-            <h2 className="text-2xl font-bold mb-4">{selectedBook.volumeInfo.title}</h2>
+            <h2 className="text-2xl font-bold mb-4">
+              {selectedBook.volumeInfo.title}
+            </h2>
             <p className="text-gray-700 mb-2">
-              {Array.isArray(selectedBook.volumeInfo.authors) ? selectedBook.volumeInfo.authors.join(', ') : 'Auteur inconnu'}
+              {Array.isArray(selectedBook.volumeInfo.authors)
+                ? selectedBook.volumeInfo.authors.join(", ")
+                : "Auteur inconnu"}
             </p>
-            <p className="text-gray-700 mb-2">{selectedBook.volumeInfo.publishedDate}</p>
-            <p className="text-gray-700 mb-4">{selectedBook.volumeInfo.description}</p>
+            <p className="text-gray-700 mb-2">
+              {selectedBook.volumeInfo.publishedDate}
+            </p>
+            <p className="text-gray-700 mb-4">
+              {selectedBook.volumeInfo.description}
+            </p>
             <a
               href={`https://books.google.com/books?id=${selectedBook.id}`}
               target="_blank"
@@ -194,7 +215,10 @@ const AdvancedSearch = () => {
               Voir sur Google Books
             </a>
             <div className="mt-4">
-              <button onClick={closeModal} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+              <button
+                onClick={closeModal}
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              >
                 Fermer
               </button>
             </div>
