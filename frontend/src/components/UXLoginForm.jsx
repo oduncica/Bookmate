@@ -19,7 +19,10 @@ const LoginForm = () => {
       }}
     >
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="email"
+          className="block text-sm font-medium text-gray-700"
+        >
           Email address
         </label>
         <div className="mt-1">
@@ -37,7 +40,10 @@ const LoginForm = () => {
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="password"
+          className="block text-sm font-medium text-gray-700"
+        >
           Password
         </label>
         <div className="mt-1 relative">
@@ -63,16 +69,16 @@ const LoginForm = () => {
 
       <div>
         <button
-        type="submit"
-        className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
-          loading
-            ? "bg-custom-orange cursor-not-allowed"
-            : "bg-custom-orange hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-orange"
-        }`}
-        disabled={loading}
+          type="submit"
+          className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+            loading
+              ? "bg-custom-orange cursor-not-allowed"
+              : "bg-custom-orange hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-orange"
+          }`}
+          disabled={loading}
         >
-        {loading ? "Signing up..." : "Sign up"}
-      </button>
+          {loading ? "Signing up..." : "Sign up"}
+        </button>
       </div>
     </form>
   );
