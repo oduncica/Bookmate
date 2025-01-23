@@ -26,12 +26,19 @@ function App() {
       <div className="container mx-auto px-4 py-8">
         <Routes>
           <Route path="/home" element={<HomePage />} />
-          <Route path="/" element={!authUser ? <AuthPage /> : <Navigate to="/home" />} />
-          <Route path="/profile" element={authUser ? <ProfilePage /> : <Navigate to="/auth" />} />
-          <Route path="/library" element={authUser ? <LibraryView /> : <Navigate to="/auth" />} />
+          <Route
+            path="/"
+            element={!authUser ? <AuthPage /> : <Navigate to="/home" />}
+          />
+          <Route
+            path="/profile"
+            element={authUser ? <ProfilePage /> : <Navigate to="/auth" />}
+          />
+          <Route
+            path="/library"
+            element={authUser ? <LibraryView /> : <Navigate to="/auth" />}
+          />
           <Route path="/search" element={<AdvancedSearch />} />
-
-
         </Routes>
       </div>
       <Toaster />
