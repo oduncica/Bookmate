@@ -7,12 +7,13 @@ import userRoutes from "./routes/userRoutes.js";
 import matchRoutes from "./routes/matchRoutes.js";
 import libraryRoutes from "./routes/libraryRoutes.js";
 import { connectDB } from "./config/db.js";
-const path = require("path");
-
+import path from "path";
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+const __dirname = path.resolve();
 
 // Connexion à la base de données
 connectDB();
@@ -32,7 +33,13 @@ app.use("/api/users", userRoutes);
 app.use("/api/match", matchRoutes);
 app.use("/api/library", libraryRoutes);
 
-app.use(express.static(path.join(__dirname, "dist")));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "dist", "index.html"));
+  });
+}
 
 app.listen(PORT, () => {
   console.log("Server is running on port " + PORT);
