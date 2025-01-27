@@ -78,7 +78,7 @@ const ProfilePage = () => {
         backgroundSize: "200%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        backgroundColor: "#543787", // Violet background
+        backgroundColor: "#3A3A64", // Violet background
       }}
     >
       {/* Email centré en haut */}

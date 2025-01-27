@@ -7,7 +7,7 @@ import AuthPage from "./pages/AuthPage";
 import ProfilePage from "./pages/ProfilePage";
 import LibraryView from "./pages/LibraryView";
 import AdvancedSearch from "./components/AvancedSearch";
-
+import MyQuestionnaire from "./components/Questionnaire";
 import Navbar from "./components/Navbar";
 import { useAuthStore } from "./store/useAuthStore";
 
@@ -39,6 +39,7 @@ function App() {
             element={authUser ? <LibraryView /> : <Navigate to="/auth" />}
           />
           <Route path="/search" element={<AdvancedSearch />} />
+          <Route path="/questionnaire" element={<MyQuestionnaire />} />
         </Routes>
       </div>
       <Toaster />

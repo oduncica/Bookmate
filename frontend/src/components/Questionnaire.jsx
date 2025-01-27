@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-
-const questionnaire = () => {
+const Questionnaire = () => {
   const genres = [
     "Horreur",
     "Romance",
@@ -23,9 +22,7 @@ const questionnaire = () => {
     "Psychologie",
     "Sports",
   ];
-
   const [selectedGenres, setSelectedGenres] = useState([]);
-
   // Fonction pour gérer la sélection de genres
   const handleSelectGenre = (genre) => {
     if (selectedGenres.includes(genre)) {
@@ -34,7 +31,6 @@ const questionnaire = () => {
       setSelectedGenres([...selectedGenres, genre]); // Ajouter
     }
   };
-
   const handleSubmit = () => {
     if (selectedGenres.length === 0) {
       alert("Veuillez sélectionner au moins un genre avant de soumettre.");
@@ -43,7 +39,6 @@ const questionnaire = () => {
       console.log("Genres sélectionnés :", selectedGenres);
     }
   };
-
   // Définir une couleur pour chaque genre sélectionné
   const genreColors = {
     Horreur: "bg-custom-blue",
@@ -67,7 +62,6 @@ const questionnaire = () => {
     Psychologie: "bg-soft-pink",
     Sports: "bg-lavender",
   };
-
   return (
     <div
       className="min-h-screen bg-cover bg-center flex flex-col items-center justify-start p-6"
@@ -87,7 +81,6 @@ const questionnaire = () => {
       <h2 className="text-xl font-bold text-white mb-8 text-center font-nunito">
         Quels genres de livres aimez-vous ?
       </h2>
-
       {/* Boutons des genres */}
       <div className="flex flex-wrap gap-4 justify-center mb-8">
         {genres.map((genre, index) => (
@@ -104,7 +97,6 @@ const questionnaire = () => {
           </button>
         ))}
       </div>
-
       {/* Bouton de soumission */}
       <button
         onClick={handleSubmit}
@@ -121,5 +113,4 @@ const questionnaire = () => {
     </div>
   );
 };
-
-export default questionnaire;
+export default Questionnaire;

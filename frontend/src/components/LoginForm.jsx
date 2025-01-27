@@ -72,8 +72,8 @@ const LoginForm = () => {
           type="submit"
           className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
             loading
-              ? "bg-pink-400 cursor-not-allowed"
-              : "bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+              ? "bg-custom-orange cursor-not-allowed"
+              : "bg-custom-orange hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-orange"
           }`}
           disabled={loading}
         >
