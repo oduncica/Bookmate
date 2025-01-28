@@ -12,19 +12,14 @@ const LoginForm = () => {
 
   return (
     <form
-      className="space-y-6"
+      className="space-y-6 font-nunito"
       onSubmit={(e) => {
         e.preventDefault();
         login({ email, password });
       }}
     >
+      
       <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Email address
-        </label>
         <div className="mt-1">
           <input
             id="email"
@@ -34,18 +29,13 @@ const LoginForm = () => {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+            placeholder="Adresse e-mail" // Placeholder en français
+            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm font-nunito"
           />
         </div>
       </div>
 
       <div>
-        <label
-          htmlFor="password"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Password
-        </label>
         <div className="mt-1 relative">
           <input
             id="password"
@@ -55,7 +45,8 @@ const LoginForm = () => {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+            placeholder="Mot de passe" // Placeholder en français
+            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm font-nunito"
           />
           <button
             type="button"
@@ -70,14 +61,12 @@ const LoginForm = () => {
       <div>
         <button
           type="submit"
-          className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
-            loading
-              ? "bg-custom-orange cursor-not-allowed"
-              : "bg-custom-orange hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-orange"
+          className={`w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-custom-orange hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-orange ${
+            loading ? "cursor-not-allowed" : ""
           }`}
           disabled={loading}
         >
-          {loading ? "Logging in..." : "Log in"}
+          {loading ? "Logging in..." : "Se connecter"}
         </button>
       </div>
     </form>
