@@ -5,25 +5,33 @@ import SignUpForm from "../components/SignUpForm";
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
 
+  // Définir la position de l'image de fond en fonction de l'état de connexion
+  const getBackgroundPosition = () => {
+    return isLogin ? "center" : "top"; // ou toute autre valeur de position que tu préfères
+  };
+
   return (
     <div
       className="min-h-screen bg-cover bg-center flex items-center justify-center p-6 overflow-auto"
       style={{
-        backgroundImage: "url('/bg_image.png')", // Image de fond (si applicable)
+        backgroundImage: "url('/bg_image.png')",
         backgroundSize: "200%",
-        backgroundPosition: "center",
+        backgroundPosition: getBackgroundPosition(),
         backgroundRepeat: "no-repeat",
-        backgroundColor: "#3A3A64", // Violet de fond
+        backgroundColor: "#3A3A64",
       }}
     >
-      <div className="w-full max-w-md">
-        <h3 className="text-center text-3xl font-extrabold text-white mb-8 font-platypi">
-          {isLogin ? "Connexion à Bookmate" : "Créer un compte sur Bookmate"}
+      <img 
+        src="/logoHorizontal.png" 
+        alt="Bookmate Logo" 
+        className="absolute top-4 left-4"
+      />
+      <div className="w-full max-w-md text-center">
+        <h3 className="text-2xl font-extrabold text-white mb-8 font-platypi">
+          {isLogin ? "Se Connecter" : "Créer votre compte"}
         </h3>
-        <div className="bg-white bg-opacity-20 shadow-xl rounded-lg p-8">
-          {isLogin ? <LoginForm /> : <SignUpForm />}
-        </div>
-        <div className="mt-8 text-center">
+        {isLogin ? <LoginForm /> : <SignUpForm />}
+        <div className="mt-8">
           <p className="text-sm text-white font-nunito">
             {isLogin ? "Nouveau sur Bookmate ?" : "Vous avez déjà un compte ?"}
           </p>

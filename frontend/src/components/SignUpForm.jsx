@@ -21,15 +21,14 @@ const SignUpForm = () => {
   };
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit}>
+    <form className="space-y-4 w-80 mx-auto" onSubmit={handleSubmit}>
+      {/* Texte centré légèrement plus haut entre le premier champ et le lien "Créer votre compte" */}
+      <div className="text-center text-white text-sm font-nunito mb-4 mt-4">
+        Bienvenue parmi nous, <br /> l'aventure commence !
+      </div>
+
       <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Adresse email
-        </label>
-        <div className="mt-1">
+        <div className="relative">
           <input
             id="email"
             name="email"
@@ -38,19 +37,14 @@ const SignUpForm = () => {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+            placeholder="Adresse email"
+            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
           />
         </div>
       </div>
 
       <div>
-        <label
-          htmlFor="password"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Mot de passe
-        </label>
-        <div className="mt-1 relative">
+        <div className="relative">
           <input
             id="password"
             name="password"
@@ -59,12 +53,13 @@ const SignUpForm = () => {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+            placeholder="Mot de passe"
+            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+            className="absolute inset-y-0 right-3 flex items-center text-gray-500"
           >
             <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
           </button>
@@ -72,13 +67,7 @@ const SignUpForm = () => {
       </div>
 
       <div>
-        <label
-          htmlFor="confirm-password"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Confirmer le mot de passe
-        </label>
-        <div className="mt-1 relative">
+        <div className="relative">
           <input
             id="confirm-password"
             name="confirm-password"
@@ -87,12 +76,13 @@ const SignUpForm = () => {
             required
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+            placeholder="Confirmer le mot de passe"
+            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+            className="absolute inset-y-0 right-3 flex items-center text-gray-500"
           >
             <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
           </button>
@@ -104,7 +94,7 @@ const SignUpForm = () => {
       <div className="mt-6">
         <button
           type="submit"
-          className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+          className="w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-custom-orange hover:bg-custom-orange focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-orange"
         >
           Continuer
         </button>
