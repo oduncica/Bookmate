@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaFilter } from "react-icons/fa";
 import BookCard from "./BookCard";
 import useLibraryStore from "../store/useLibraryStore";
 import Modal from "react-modal";
+import logo from "../images/logo.png"; // Assurez-vous que le chemin est correct
 
 const GOOGLE_BOOKS_API_KEY = "AIzaSyDWPZhU3bhsZDl_CgpGjaaKiXOCt4xoRJU";
 
@@ -14,10 +15,11 @@ const AdvancedSearch = () => {
   const [publishedBefore, setPublishedBefore] = useState("");
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
+  const [showFilters, setShowFilters] = useState(false);
 
-  const addToReadBook = useLibraryStore((state) => state.addToReadBook); // Utilisez la fonction addToReadBook du store
-  const addReadBook = useLibraryStore((state) => state.addReadBook); // Utilisez la fonction addReadBook du store
-  const addDislikedBook = useLibraryStore((state) => state.addDislikedBook); // Utilisez la fonction addDislikedBook du store
+  const addToReadBook = useLibraryStore((state) => state.addToReadBook);
+  const addReadBook = useLibraryStore((state) => state.addReadBook);
+  const addDislikedBook = useLibraryStore((state) => state.addDislikedBook);
 
   const searchBooks = async () => {
     let url = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${GOOGLE_BOOKS_API_KEY}`;
@@ -41,6 +43,12 @@ const AdvancedSearch = () => {
       setBooks(data.items || []);
     } catch (error) {
       console.error("Erreur de recherche:", error);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      searchBooks();
     }
   };
 
@@ -83,84 +91,92 @@ const AdvancedSearch = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-[#fde9ad] min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-8">
+    <div className="container mx-auto px-4 py-8 bg-[#3A3A64] min-h-screen">
+      <h1 className="text-1xl font-bold text-center mb-8">
         Recherche avancée de livres
       </h1>
       <div className="search-container mb-8">
-        <div className="flex items-center mb-4">
+        <div className="flex items-center mb-4 relative">
+          <img src={logo} alt="Logo" className="h-10 mr-4" />
+          <FaSearch
+            className="absolute left-14 top-3 text-gray-400 cursor-pointer"
+            onClick={searchBooks}
+          />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Rechercher un livre..."
-            className="w-full p-2 border border-gray-300 rounded-l-lg"
+            onKeyPress={handleKeyPress}
+            placeholder="Recherche"
+            className="w-full p-2 pl-16 border border-gray-300 rounded-lg"
           />
           <button
-            onClick={searchBooks}
-            className="bg-blue-500 hover:bg-blue-700 text-white p-2 rounded-r-lg flex items-center"
+            onClick={() => setShowFilters(!showFilters)}
+            className="bg-gray-500 hover:bg-gray-700 text-white p-2 rounded-lg flex items-center ml-2"
           >
-            <FaSearch className="mr-2" />
-            Rechercher
+            <FaFilter className="mr-2" />
+            Filtres
           </button>
         </div>
-        <div className="search-filters grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="language" className="block text-gray-700">
-              Langue :
-            </label>
-            <select
-              id="language"
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-            >
-              <option value="">Tout</option>
-              <option value="fr">Français</option>
-              <option value="en">Anglais</option>
-              <option value="es">Espagnol</option>
-            </select>
+        {showFilters && (
+          <div className="search-filters grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="language" className="block text-white">
+                Langue :
+              </label>
+              <select
+                id="language"
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+              >
+                <option value="">Tout</option>
+                <option value="fr">Français</option>
+                <option value="en">Anglais</option>
+                <option value="es">Espagnol</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="type" className="block text-white">
+                Type de contenu :
+              </label>
+              <select
+                id="type"
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+              >
+                <option value="">Tout</option>
+                <option value="books">Livres imprimés</option>
+                <option value="ebooks">Livres numériques</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="publishedAfter" className="block text-white">
+                Publié après :
+              </label>
+              <input
+                type="date"
+                id="publishedAfter"
+                value={publishedAfter}
+                onChange={(e) => setPublishedAfter(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+            <div>
+              <label htmlFor="publishedBefore" className="block text-white">
+                Publié avant :
+              </label>
+              <input
+                type="date"
+                id="publishedBefore"
+                value={publishedBefore}
+                onChange={(e) => setPublishedBefore(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
           </div>
-          <div>
-            <label htmlFor="type" className="block text-gray-700">
-              Type de contenu :
-            </label>
-            <select
-              id="type"
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-            >
-              <option value="">Tout</option>
-              <option value="books">Livres imprimés</option>
-              <option value="ebooks">Livres numériques</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="publishedAfter" className="block text-gray-700">
-              Publié après :
-            </label>
-            <input
-              type="date"
-              id="publishedAfter"
-              value={publishedAfter}
-              onChange={(e) => setPublishedAfter(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-            />
-          </div>
-          <div>
-            <label htmlFor="publishedBefore" className="block text-gray-700">
-              Publié avant :
-            </label>
-            <input
-              type="date"
-              id="publishedBefore"
-              value={publishedBefore}
-              onChange={(e) => setPublishedBefore(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
-            />
-          </div>
-        </div>
+        )}
       </div>
       <div className="book-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {books.map((book) => (

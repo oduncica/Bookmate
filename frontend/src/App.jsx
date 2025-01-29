@@ -6,9 +6,11 @@ import HomePage from "./pages/HomePage";
 import AuthPage from "./pages/AuthPage";
 import ProfilePage from "./pages/ProfilePage";
 import LibraryView from "./pages/LibraryView";
+import IgnoredBooks from "./components/IgnoredBooks";
 import AdvancedSearch from "./components/AvancedSearch";
-import MyQuestionnaire from "./components/Questionnaire";
+import Questionnaire from "./components/Questionnaire";
 import Navbar from "./components/Navbar";
+import SignUpForm from "./components/SignUpForm";
 import { useAuthStore } from "./store/useAuthStore";
 
 function App() {
@@ -21,14 +23,26 @@ function App() {
   if (checkingAuth) return null;
 
   return (
-    <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
+    <div className="min-h-screen">
       <Navbar />
-      <div className="container mx-auto px-4 py-8">
+      <div>
         <Routes>
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/" element={<Navigate to="/home" />} />
           <Route
-            path="/"
+            path="/auth"
             element={!authUser ? <AuthPage /> : <Navigate to="/home" />}
+          />
+          <Route
+            path="/signup"
+            element={!authUser ? <SignUpForm /> : <Navigate to="/home" />}
+          />
+          <Route
+            path="/questionnaire"
+            element={!authUser ? <Questionnaire /> : <Navigate to="/home" />}
+          />
+          <Route
+            path="/home"
+            element={authUser ? <HomePage /> : <Navigate to="/auth" />}
           />
           <Route
             path="/profile"
@@ -38,8 +52,18 @@ function App() {
             path="/library"
             element={authUser ? <LibraryView /> : <Navigate to="/auth" />}
           />
-          <Route path="/search" element={<AdvancedSearch />} />
-          <Route path="/questionnaire" element={<MyQuestionnaire />} />
+          <Route
+            path="/ignored-books"
+            element={authUser ? <IgnoredBooks /> : <Navigate to="/auth" />}
+          />
+          <Route
+            path="/search"
+            element={authUser ? <AdvancedSearch /> : <Navigate to="/auth" />}
+          />
+          <Route
+            path="/questionnaire"
+            element={authUser ? <Questionnaire /> : <Navigate to="/auth" />}
+          />
         </Routes>
       </div>
       <Toaster />

@@ -1,8 +1,10 @@
 import { useState } from "react";
-import LoginForms from "../components/LoginForm";
-import SignUpForms from "../components/SignUpForm";
+import LoginForm from "../components/LoginForm";
+import SignUpForm from "../components/SignUpForm";
+
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
+
   return (
     <div
       className="min-h-screen bg-cover bg-center flex items-center justify-center p-6 overflow-auto"
@@ -11,15 +13,15 @@ const AuthPage = () => {
         backgroundSize: "200%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        backgroundColor: "#543787", // Violet de fond
+        backgroundColor: "#3A3A64", // Violet de fond
       }}
     >
       <div className="w-full max-w-md">
-        <h2 className="text-center text-3xl font-extrabold text-white mb-8 font-platypi">
+        <h3 className="text-center text-3xl font-extrabold text-white mb-8 font-platypi">
           {isLogin ? "Connexion à Bookmate" : "Créer un compte sur Bookmate"}
-        </h2>
+        </h3>
         <div className="bg-white bg-opacity-20 shadow-xl rounded-lg p-8">
-          {isLogin ? <LoginForms /> : <SignUpForms />}
+          {isLogin ? <LoginForm /> : <SignUpForm />}
         </div>
         <div className="mt-8 text-center">
           <p className="text-sm text-white font-nunito">
@@ -36,4 +38,5 @@ const AuthPage = () => {
     </div>
   );
 };
+
 export default AuthPage;

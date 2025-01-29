@@ -51,9 +51,9 @@ const HomePage = () => {
       className="container mx-auto px-4 py-8 bg-[#3A3A64] min-h-screen flex flex-col items-center justify-center"
       {...handlers}
     >
-      <h1 className="text-4xl font-bold text-center mb-8 text-white">
+      {/* <h3 className="text-4xl font-bold text-center mb-8 text-white">
         BookMate
-      </h1>
+      </h3> */}
       <div className="flex justify-center items-center w-full h-full">
         {Array.isArray(suggestions) && suggestions.length > 0 ? (
           <TinderBookCard
