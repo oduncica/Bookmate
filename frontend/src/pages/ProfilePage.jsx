@@ -11,6 +11,7 @@ import {
   faLock,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import { FaFire } from "react-icons/fa"; // Import de FaFire
 
 const ProfilePage = () => {
   const { authUser, logout, updateProfile } = useAuthStore();
@@ -81,6 +82,15 @@ const ProfilePage = () => {
         backgroundColor: "#3A3A64", // Violet background
       }}
     >
+      {/* Logo centré en haut */}
+      <div className="w-full flex justify-center mb-4">
+        <img
+          src="/logoHorizontal.png"
+          alt="Logo"
+          style={{ width: "auto", height: "auto" }} // Conserve les dimensions originales
+        />
+      </div>
+
       {/* Email centré en haut */}
       <div className="w-full text-center mb-8">
         <p className="text-2xl font-bold text-white font-platypi">{email}</p>
@@ -89,11 +99,8 @@ const ProfilePage = () => {
       {/* Section Mes recommandations */}
       <div className="w-full max-w-md mb-6">
         <div className="flex items-center mb-2">
-          <FontAwesomeIcon
-            icon={faBook}
-            size="lg"
-            className="text-white mr-2"
-          />
+          {/* Remplacement de faBook par FaFire avec une taille cohérente */}
+          <FaFire className="text-white mr-2 text-lg" />
           <p className="text-xl font-bold text-white font-platypi">
             Mes recommandations
           </p>
