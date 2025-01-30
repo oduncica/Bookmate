@@ -6,11 +6,14 @@ import HomePage from "./pages/HomePage";
 import AuthPage from "./pages/AuthPage";
 import ProfilePage from "./pages/ProfilePage";
 import LibraryView from "./pages/LibraryView";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
+
 import IgnoredBooks from "./components/IgnoredBooks";
 import AdvancedSearch from "./components/AvancedSearch";
 import Questionnaire from "./components/Questionnaire";
 import Navbar from "./components/Navbar";
-import SignUpForm from "./components/SignUpForm";
+import SignUpForm from "./components//SignUpForm";
 import { useAuthStore } from "./store/useAuthStore";
 
 function App() {
@@ -60,10 +63,8 @@ function App() {
             path="/search"
             element={authUser ? <AdvancedSearch /> : <Navigate to="/auth" />}
           />
-          <Route
-            path="/questionnaire"
-            element={authUser ? <Questionnaire /> : <Navigate to="/auth" />}
-          />
+          <Route path="/passwordreset" element={<ForgotPassword />} />
+          <Route path="/passwordreset/:token" element={<ResetPassword />} />
         </Routes>
       </div>
       <Toaster />

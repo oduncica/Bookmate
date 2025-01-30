@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import axiosInstance from '../lib/axios'; 
+import axiosInstance from "../lib/axios";
 import toast from "react-hot-toast";
 
 export const useAuthStore = create((set) => ({
@@ -12,8 +12,10 @@ export const useAuthStore = create((set) => ({
       set({ loading: true });
       const res = await axiosInstance.post("/auth/signup", signupData);
       set({ authUser: res.data.user });
-      localStorage.setItem('jwt', res.data.token); // Stocker le token JWT
-      await axiosInstance.post('/auth/preferences', { bookPreferences: signupData.bookPreferences });
+      localStorage.setItem("jwt", res.data.token); // Stocker le token JWT
+      await axiosInstance.post("/auth/preferences", {
+        bookPreferences: signupData.bookPreferences,
+      });
       toast.success("Account created successfully");
       navigate("/home"); // Rediriger vers la page d'accueil
     } catch (error) {
@@ -28,7 +30,7 @@ export const useAuthStore = create((set) => ({
       set({ loading: true });
       const res = await axiosInstance.post("/auth/login", loginData);
       set({ authUser: res.data.user });
-      localStorage.setItem('jwt', res.data.token); // Stocker le token JWT
+      localStorage.setItem("jwt", res.data.token); // Stocker le token JWT
       toast.success("Logged in successfully");
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");
@@ -42,7 +44,7 @@ export const useAuthStore = create((set) => ({
       const res = await axiosInstance.post("/auth/logout");
       if (res.status === 200) {
         set({ authUser: null });
-        localStorage.removeItem('jwt'); // Supprimer le token JWT
+        localStorage.removeItem("jwt"); // Supprimer le token JWT
         toast.success("Logged out successfully");
       } else {
         toast.error("Failed to log out");
@@ -54,20 +56,25 @@ export const useAuthStore = create((set) => ({
 
   updateProfile: async (profileData) => {
     try {
-      const response = await axiosInstance.put('/users/update', profileData);
+      const response = await axiosInstance.put("/users/update", profileData);
       set({ user: response.data });
-      toast.success('Profil mis à jour avec succès');
+      toast.success("Profil mis à jour avec succès");
     } catch (error) {
-      console.error('Erreur lors de la mise à jour du profil:', error.response?.data?.message || error.message);
-      toast.error('Erreur lors de la mise à jour du profil');
+      console.error(
+        "Erreur lors de la mise à jour du profil:",
+        error.response?.data?.message || error.message
+      );
+      toast.error("Erreur lors de la mise à jour du profil");
     }
   },
 
   checkAuth: async () => {
     try {
-      const token = localStorage.getItem('jwt');
+      const token = localStorage.getItem("jwt");
       if (token) {
-        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        axiosInstance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${token}`;
         const res = await axiosInstance.get("/auth/me");
         set({ authUser: res.data.user });
       } else {

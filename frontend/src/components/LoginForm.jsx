@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -69,6 +70,15 @@ const LoginForm = () => {
         >
           {loading ? "Logging in..." : "Se Connecter"}
         </button>
+      </div>
+
+      <div className="mt-1 text-center">
+        <Link
+          to="/passwordreset"
+          className="text-sm text-custom-orange hover:text-custom-orange-dark"
+        >
+          Mot de passe oublié ?
+        </Link>
       </div>
     </form>
   );

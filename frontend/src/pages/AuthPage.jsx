@@ -21,9 +21,9 @@ const AuthPage = () => {
         backgroundColor: "#3A3A64",
       }}
     >
-      <img 
-        src="/logoHorizontal.png" 
-        alt="Bookmate Logo" 
+      <img
+        src="/logoHorizontal.png"
+        alt="Bookmate Logo"
         className="absolute top-4 left-4"
       />
       <div className="w-full max-w-md text-center">
@@ -31,7 +31,7 @@ const AuthPage = () => {
           {isLogin ? "Se Connecter" : "Créer votre compte"}
         </h3>
         {isLogin ? <LoginForm /> : <SignUpForm />}
-        <div className="mt-8">
+        <div className="mt-5">
           <p className="text-sm text-white font-nunito">
             {isLogin ? "Nouveau sur Bookmate ?" : "Vous avez déjà un compte ?"}
           </p>
