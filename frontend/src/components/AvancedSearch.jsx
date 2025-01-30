@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { FaSearch, FaFilter } from "react-icons/fa";
+import { FaSearch, FaFilter, FaSlidersH } from "react-icons/fa";
 import BookCard from "./BookCard";
 import useLibraryStore from "../store/useLibraryStore";
 import Modal from "react-modal";
-import logo from "../images/logo.png"; // Assurez-vous que le chemin est correct
+import logo from "../images/logoNoText.png"; // Assurez-vous que le chemin est correct
 
 const GOOGLE_BOOKS_API_KEY = "AIzaSyDWPZhU3bhsZDl_CgpGjaaKiXOCt4xoRJU";
 
@@ -92,32 +92,34 @@ const AdvancedSearch = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 bg-[#3A3A64] min-h-screen">
-      <h1 className="text-1xl font-bold text-center mb-8">
-        Recherche avancée de livres
-      </h1>
       <div className="search-container mb-8">
-        <div className="flex items-center mb-4 relative">
-          <img src={logo} alt="Logo" className="h-10 mr-4" />
-          <FaSearch
-            className="absolute left-14 top-3 text-gray-400 cursor-pointer"
-            onClick={searchBooks}
-          />
+        <div className="flex items-center mb-4 w-full max-w-lg mx-auto">
+          <img src={logo} alt="Logo" className="h-12 mr-4" />
+          
+          {/* Zone de recherche plus petite mais avec icône et texte à gauche */}
+        <div className="flex items-center w-3/4 bg-white rounded-lg border border-[#3A3A64] focus:ring-2 focus:ring-[#3A3A64] focus:border-[#3A3A64]">
+          <FaSearch className="text-[#3A3A64] ml-4 text-xl" /> {/* Icône Search en #3A3A64 */}
+          
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Recherche"
-            className="w-full p-2 pl-16 border border-gray-300 rounded-lg"
+            placeholder="Rechercher"
+            className="w-full p-2 pl-4 pr-4 text-lg text-[#3A3A64] rounded-lg"
           />
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className="bg-gray-500 hover:bg-gray-700 text-white p-2 rounded-lg flex items-center ml-2"
-          >
-            <FaFilter className="mr-2" />
-            Filtres
-          </button>
         </div>
+
+          {/* Bouton Filter harmonisé avec la même couleur que le champ de recherche */}
+        <button
+          onClick={() => setShowFilters(!showFilters)}
+          className="bg-white text-[#3A3A64] p-3 rounded-lg flex items-center justify-center ml-2 w-16 h-full border border-[#3A3A64]"
+        >
+          <FaSlidersH className="text-xl" />
+        </button>
+        </div>
+  
+        {/* Affichage des filtres */}
         {showFilters && (
           <div className="search-filters grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -128,7 +130,7 @@ const AdvancedSearch = () => {
                 id="language"
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border border-[#3A3A64] rounded"
               >
                 <option value="">Tout</option>
                 <option value="fr">Français</option>
@@ -144,7 +146,7 @@ const AdvancedSearch = () => {
                 id="type"
                 value={type}
                 onChange={(e) => setType(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border border-[#3A3A64] rounded"
               >
                 <option value="">Tout</option>
                 <option value="books">Livres imprimés</option>
@@ -160,7 +162,7 @@ const AdvancedSearch = () => {
                 id="publishedAfter"
                 value={publishedAfter}
                 onChange={(e) => setPublishedAfter(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border border-[#3A3A64] rounded"
               />
             </div>
             <div>
@@ -172,12 +174,13 @@ const AdvancedSearch = () => {
                 id="publishedBefore"
                 value={publishedBefore}
                 onChange={(e) => setPublishedBefore(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border border-[#3A3A64] rounded"
               />
             </div>
           </div>
         )}
       </div>
+  
       <div className="book-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {books.map((book) => (
           <BookCard
@@ -198,6 +201,8 @@ const AdvancedSearch = () => {
             isLibraryView={false}
           />
         ))}
+    
+  
       </div>
       {selectedBook && (
         <Modal
