@@ -94,7 +94,7 @@ const AdvancedSearch = () => {
     <div className="container mx-auto px-4 py-8 bg-[#3A3A64] min-h-screen">
       <div className="search-container mb-8">
         <div className="flex items-center mb-4 w-full max-w-lg mx-auto">
-          <img src={logo} alt="Logo" className="h-12 mr-4" />
+          <img src={logo} alt="Logo" className="h-12 mr-2" />
           
           {/* Zone de recherche plus petite mais avec icône et texte à gauche */}
         <div className="flex items-center w-3/4 bg-white rounded-lg border border-[#3A3A64] focus:ring-2 focus:ring-[#3A3A64] focus:border-[#3A3A64]">

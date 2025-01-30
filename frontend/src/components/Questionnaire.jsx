@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import { FaFire } from "react-icons/fa";
-import logo from "../images/logo2.png"; // Import de l'image
+import logo from "../images/logoHorizontal.png"; // Import de l'image
 
 const genres = {
   Fiction: [
@@ -64,20 +64,64 @@ const genres = {
   Théâtre: ["Comédie", "Tragédie", "Drame historique", "Théâtre de l'absurde"],
 };
 
-const getRandomColor = () => {
-  const colors = [
-    "bg-red-500",
-    "bg-green-500",
-    "bg-blue-500",
-    "bg-yellow-500",
-    "bg-purple-500",
-    "bg-pink-500",
-    "bg-indigo-500",
-    "bg-teal-500",
-    "bg-orange-500",
-    "bg-gray-500",
-  ];
-  return colors[Math.floor(Math.random() * colors.length)];
+// Liste de couleurs associées
+const colorMap = {
+  "Horreur": "bg-custom-blue",
+  "Romance": "bg-custom-orange",
+  "Réaliste": "bg-custom-yellow",
+  "Thriller": "bg-custom-green",
+  "Mystère": "bg-custom-green2",
+  "Science-fiction": "bg-custom-turquoise",
+  "Fantaisie": "bg-custom-darker-orange",
+  "Aventure": "bg-light-blue",
+  "Drame": "bg-light-yellow",
+  "Santé et bien-être": "bg-light-pink",
+  "Musique": "bg-soft-pink",
+  "Recettes": "bg-lavender",
+  "Technologie": "bg-blue-light",
+  "Philosophie": "bg-custom-dark-blue",
+  "Histoire": "bg-violet",
+  "Arts": "bg-dark-green",
+  "Science": "bg-orange",
+  "Psychologie": "bg-lu-color",
+  "Sports": "bg-aLire-color",
+  "Essai": "bg-custom-blue",
+  "Autobiographie": "bg-custom-orange",
+  "Sociologie": "bg-custom-yellow",
+  "Environnement": "bg-custom-green",
+  "Développement personnel": "bg-custom-green2",
+  "Coming of age": "bg-custom-turquoise",
+  "Poésie": "bg-custom-darker-orange",
+  "Littérature LGBTQ+": "bg-light-blue",
+  "Littérature africaine": "bg-light-yellow",
+  "Littérature asiatique": "bg-light-pink",
+  "Littérature latino-américaine": "bg-soft-pink",
+  "Littérature européenne": "bg-lavender",
+  "Littérature autochtone": "bg-blue-light",
+  "Nouvelle": "bg-custom-dark-blue",
+  "Littérature française": "bg-violet",
+  "Classique": "bg-dark-green",
+  "Mythologie": "bg-orange",
+  "Contes de fées": "bg-lu-color",
+  "Voyage dans le temps": "bg-aLire-color",
+  "Cyberpunk": "bg-custom-blue",
+  "Steampunk": "bg-custom-orange",
+  "Western": "bg-custom-yellow",
+  "Gothique": "bg-custom-green",
+  "Utopie/Dystopie": "bg-custom-green2",
+  "Chick-lit": "bg-custom-turquoise",
+  "Politique": "bg-custom-darker-orange",
+  "Scientifique": "bg-light-blue",
+  "Sportive": "bg-light-yellow",
+  "Artistique": "bg-light-pink",
+  "Épique": "bg-soft-pink",
+  "Lyrique": "bg-lavender",
+  "Satirique": "bg-blue-light",
+  "Narrative": "bg-custom-dark-blue",
+  "Comédie": "bg-violet",
+  "Tragédie": "bg-dark-green",
+  "Drame historique": "bg-orange",
+  "Théâtre de l'absurde": "bg-lu-color",
 };
 
 const Questionnaire = () => {
@@ -125,13 +169,12 @@ const Questionnaire = () => {
         backgroundColor: "#3A3A64", // Couleur de fond
       }}
     >
-      <img src={logo} alt="Logo" className="mb-4 w-24 h-24 object-contain" />{" "}
-      {/* Ajout de l'image */}
-      <h3 className="text-3xl font-bold text-white mb-4 text-center font-platypi">
+      <img src={logo} alt="Logo" className="mb-4 object-none" />
+      <h3 className="text-2xl font-bold text-white mb-4 text-center font-platypi">
         Dites-nous en plus sur vos goûts...
       </h3>
       <h4
-        className="text-xl font-bold mb-8 text-center font-nunito"
+        className="text-xl font-bold mb-6 text-center font-nunito"
         style={{ color: "#F3CD4A" }}
       >
         Quels genres de livres aimez-vous ?
@@ -149,9 +192,7 @@ const Questionnaire = () => {
                     key={subIndex}
                     className={`px-4 py-2 rounded-full border font-bold text-white font-nunito transition-transform transform ${
                       selectedGenres.includes(subGenre)
-                        ? `${getRandomColor()} border-${getRandomColor().slice(
-                            3
-                          )} scale-105`
+                        ? `${colorMap[subGenre]} border-${colorMap[subGenre].slice(3)} scale-105`
                         : "bg-transparent border-white text-white hover:scale-105"
                     }`}
                     onClick={() => handleSelectGenre(subGenre)}
@@ -174,7 +215,7 @@ const Questionnaire = () => {
       </div>
       <button
         onClick={handleSubmit}
-        className={`w-full max-w-xs flex justify-center items-center py-2 px-3 border border-transparent rounded-full shadow-lg text-base font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-transform transform ${
+        className={`w-full max-w-xs flex justify-center items-center py-2 px-3 border border-transparent rounded-full shadow-lg text-base font-medium text-white bg-custom-orange hover:bg-custom-orange focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-orange transition-transform transform ${
           loading ? "cursor-not-allowed" : "hover:scale-105"
         }`}
         disabled={loading}

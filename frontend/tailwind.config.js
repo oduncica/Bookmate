@@ -13,6 +13,9 @@ export default {
         'custom-orange': '#f0743e',
         'custom-yellow': '#feb737',
         'custom-green': '#aad59f',
+        'custom-green2':'#2A621C',
+        'custom-turquoise':'#2e6168',
+        'custom-darker-orange':'#d25c28',
         
         // secondary colors
         'light-blue': '#d4e0f0',
@@ -21,9 +24,14 @@ export default {
         'soft-pink': '#f9b1b2',
         'lavender': '#cdbcdc',
         'blue-light': '#9ab2d4',
+        'custom-dark-blue':'#3A3A64',
         'violet': '#543787',
         'dark-green': '#526049',
         'orange': '#f29b3a',
+
+        //couleur boutons
+        'lu-color':'#67AAB3',
+        'aLire-color':'#4D9F38',
       },
     },
   },
