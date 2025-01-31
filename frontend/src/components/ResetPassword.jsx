@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../lib/axios";
 
 const ResetPassword = () => {
   const { token } = useParams();
@@ -20,14 +20,10 @@ const ResetPassword = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post(
-        `https://bookmate-ddmf.onrender.com/api/users/passwordreset/${token}`,
-        // `http://localhost:3000/api/users/passwordreset/${token}`,
-        {
-          newPassword,
-          confirmPassword,
-        }
-      );
+      const res = await axiosInstance.post(`/users/passwordreset/${token}`, {
+        newPassword,
+        confirmPassword,
+      });
       setMessage(res.data.message);
       setError("");
       setTimeout(() => {

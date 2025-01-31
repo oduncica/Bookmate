@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../lib/axios";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -11,11 +11,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post(
-        "https://bookmate-ddmf.onrender.com/api/users/passwordreset",
-        // "http://localhost:3000/api/users/passwordreset",
-        { email }
-      );
+      const res = await axiosInstance.post("/users/passwordreset", { email });
       setMessage(res.data.message);
       setError("");
     } catch (err) {
