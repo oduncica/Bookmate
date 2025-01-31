@@ -20,7 +20,7 @@ const ResetPassword = () => {
 
     setLoading(true);
     try {
-      const res = await axiosInstance.post(`/users/passwordreset/${token}`, {
+      const res = await axiosInstance.post(`/password/reset/${token}`, {
         newPassword,
         confirmPassword,
       });
