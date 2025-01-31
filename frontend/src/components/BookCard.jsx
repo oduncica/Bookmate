@@ -14,69 +14,80 @@ const BookCard = ({ book, onAddToRead, onAddToReadBooks, onAddToDislikedBooks, o
   };
 
   return (
-    <div className="max-w-xs rounded-lg overflow-hidden shadow-lg m-2 bg-[#FFEED6] text-black">
-      {book.image ? (
-        <img className="w-full h-40 object-cover" src={book.image} alt={book.title} />
-      ) : (
-        <div className="w-full h-40 bg-gray-200 flex items-center justify-center">
-          <span className="text-gray-500">Image non disponible</span>
-        </div>
-      )}
-      <div className="px-4 py-2">
-        <div className="font-bold text-md mb-2">{book.title}</div>
-        <p className="text-gray-700 text-xs">
-          {Array.isArray(book.authors) ? book.authors.join(', ') : 'Auteur inconnu'}
-        </p>
-      </div>
-      <div className="px-4 pt-2 pb-2">
-        {Array.isArray(book.categories) && book.categories.map((category) => (
-          <span key={category} className="inline-block bg-gray-200 rounded-full px-2 py-1 text-xs font-semibold text-gray-700 mr-2 mb-2">
-            #{category}
-          </span>
-        ))}
-      </div>
-      <div className="px-4 py-2 flex justify-center space-x-2">
-        <button
-          onClick={openModal}
-          className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded flex items-center"
-          title="Voir les détails"
-        >
-          <FaInfoCircle className="mr-2" />
-          Détails
-        </button>
-        {isLibraryView ? (
-          <button
-            onClick={onDelete}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded flex items-center"
-            title="Supprimer"
-          >
-            <FaTimes />
-          </button>
+    <div className="max-w-md rounded-lg overflow-hidden shadow-lg m-2 bg-white text-[#3A3A64]">
+      <div className="flex">
+        {/* Image à gauche */}
+        {book.image ? (
+          <img className="w-24 h-32 object-cover m-2" src={book.image} alt={book.title} />
         ) : (
-          <>
-            <button
-              onClick={onAddToRead}
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded flex items-center"
-              title="Ajouter à 'à lire'"
-            >
-              <FaBook />
-            </button>
-            <button
-              onClick={onAddToReadBooks}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded flex items-center"
-              title="Ajouter à 'Lu'"
-            >
-              <FaCheck />
-            </button>
-            <button
-              onClick={onAddToDislikedBooks}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded flex items-center"
-              title="Ajouter à 'Pas intéressé'"
-            >
-              <FaTimes />
-            </button>
-          </>
+          <div className="w-24 h-32 bg-gray-200 flex items-center justify-center m-2">
+            <span className="text-gray-500">Image non disponible</span>
+          </div>
         )}
+
+        {/* Contenu à droite */}
+        <div className="flex-1 px-4 py-2">
+          <div className="font-bold text-md mb-2" style={{ fontFamily: 'Platypi, sans-serif' }}>
+          {book.title}
+        </div>
+          <p className="text-[#3A3A64] text-xs">
+            {Array.isArray(book.authors) ? book.authors.join(', ') : 'Auteur inconnu'}
+          </p>
+
+          {/* Tags */}
+          <div className="mt-2">
+            {Array.isArray(book.categories) && book.categories.map((category) => (
+              <span key={category} className="inline-block bg-gray-200 rounded-full px-2 py-1 text-xs font-semibold text-[#3A3A64] mr-2 mb-2">
+                #{category}
+              </span>
+            ))}
+          </div>
+
+          {/* Boutons */}
+          <div className="mt-2 flex justify-start space-x-2">
+            <button
+              onClick={openModal}
+              className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded flex items-center"
+              title="Voir les détails"
+            >
+              <FaInfoCircle className="mr-2" />
+              Détails
+            </button>
+            {isLibraryView ? (
+              <button
+                onClick={onDelete}
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded flex items-center"
+                title="Supprimer"
+              >
+                <FaTimes />
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={onAddToRead}
+                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded flex items-center"
+                  title="Ajouter à 'à lire'"
+                >
+                  <FaBook />
+                </button>
+                <button
+                  onClick={onAddToReadBooks}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded flex items-center"
+                  title="Ajouter à 'Lu'"
+                >
+                  <FaCheck />
+                </button>
+                <button
+                  onClick={onAddToDislikedBooks}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded flex items-center"
+                  title="Ajouter à 'Pas intéressé'"
+                >
+                  <FaTimes />
+                </button>
+              </>
+            )}
+          </div>
+        </div>
       </div>
 
       <Modal
@@ -95,13 +106,13 @@ const BookCard = ({ book, onAddToRead, onAddToReadBooks, onAddToDislikedBooks, o
           </div>
           <div className="mb-4">
             <img className="w-full h-40 object-cover mb-4" src={book.image} alt={book.title} />
-            <p className="text-gray-700 mb-2">
+            <p className="text-[#3A3A64] mb-2">
               <strong>Auteur(s) :</strong> {Array.isArray(book.authors) ? book.authors.join(', ') : 'Auteur inconnu'}
             </p>
-            <div className="text-gray-700 mb-2 max-h-40 overflow-y-auto">
+            <div className="text-[#3A3A64] mb-2 max-h-40 overflow-y-auto">
               <strong>Description :</strong> {book.description || 'Description non disponible'}
             </div>
-            <p className="text-gray-700 mb-2">
+            <p className="text-[#3A3A64] mb-2">
               <strong>Date de publication :</strong> {book.publishedDate || 'Date non disponible'}
             </p>
             <a

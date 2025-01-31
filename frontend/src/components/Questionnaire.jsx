@@ -170,40 +170,40 @@ const Questionnaire = () => {
       }}
     >
       <img src={logo} alt="Logo" className="mb-4 object-none" />
-      <h3 className="text-2xl font-bold text-white mb-4 text-center font-platypi">
+      <h3 className="text-xl font-bold text-white mb-4 text-center font-platypi">
         Dites-nous en plus sur vos goûts...
       </h3>
       <h4
-        className="text-xl font-bold mb-6 text-center font-nunito"
+        className="text-lg font-bold mb-6 text-center font-nunito"
         style={{ color: "#F3CD4A" }}
       >
         Quels genres de livres aimez-vous ?
       </h4>
-      <div className="flex flex-wrap gap-4 justify-center mb-8">
+      <div className="flex flex-wrap gap-4 justify-start mb-6"> {/* Alignement à gauche */}
         {Object.entries(genres).map(([genre, subGenres], index) => (
           <div key={index} className="w-full">
-            <h4 className="text-2xl font-bold text-white mb-2 text-center font-nunito">
+            <h4 className="text-xl text-white mb-2 text-left font-nunito">
               {genre}
             </h4>
-            <div className="flex flex-wrap gap-4 justify-center mb-4">
+            <div className="flex flex-wrap gap-3 justify-start mb-4"> {/* Réduction de l'espace entre les boutons */}
               {(expandedGenres[genre] ? subGenres : subGenres.slice(0, 3)).map(
                 (subGenre, subIndex) => (
                   <button
-                    key={subIndex}
-                    className={`px-4 py-2 rounded-full border font-bold text-white font-nunito transition-transform transform ${
-                      selectedGenres.includes(subGenre)
-                        ? `${colorMap[subGenre]} border-${colorMap[subGenre].slice(3)} scale-105`
-                        : "bg-transparent border-white text-white hover:scale-105"
-                    }`}
-                    onClick={() => handleSelectGenre(subGenre)}
-                  >
-                    {subGenre}
-                  </button>
+                  key={subIndex}
+                  className={`px-3 py-1.5 rounded-full border font-bold text-white font-nunito transition-transform transform ${
+                    selectedGenres.includes(subGenre)
+                      ? `${colorMap[subGenre]} border-none scale-105` // Suppression de border-white quand sélectionné
+                      : "bg-transparent border-white text-white hover:scale-105"
+                  }`}
+                  onClick={() => handleSelectGenre(subGenre)}
+                >
+                  {subGenre}
+                </button>
                 )
               )}
               {subGenres.length > 3 && (
                 <button
-                  className="px-4 py-2 rounded-full border font-bold font-nunito bg-gray-700 border-gray-500 text-white hover:bg-gray-600 hover:scale-105"
+                  className="px-3 py-1.5 rounded-full border font-bold font-nunito bg-gray-700 border-gray-500 text-white hover:bg-gray-600 hover:scale-105"
                   onClick={() => handleToggleExpand(genre)}
                 >
                   {expandedGenres[genre] ? "Voir moins" : "Voir plus"}
@@ -215,7 +215,7 @@ const Questionnaire = () => {
       </div>
       <button
         onClick={handleSubmit}
-        className={`w-full max-w-xs flex justify-center items-center py-2 px-3 border border-transparent rounded-full shadow-lg text-base font-medium text-white bg-custom-orange hover:bg-custom-orange focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-orange transition-transform transform ${
+        className={`w-full max-w-xs flex justify-start items-center py-1.5 px-3 border border-transparent rounded-full shadow-lg text-base font-medium text-white bg-custom-orange hover:bg-custom-orange focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom-orange transition-transform transform ${
           loading ? "cursor-not-allowed" : "hover:scale-105"
         }`}
         disabled={loading}

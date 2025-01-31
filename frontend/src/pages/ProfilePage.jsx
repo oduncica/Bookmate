@@ -92,8 +92,8 @@ const ProfilePage = () => {
       </div>
 
       {/* Email centré en haut */}
-      <div className="w-full text-center mb-8">
-        <p className="text-2xl font-bold text-white font-platypi">{email}</p>
+      <div className="w-full text-center mb-4"> {/* Réduire la marge inférieure si nécessaire */}
+        <p className="text-xl text-white font-platypi">{email}</p> {/* Changer text-2xl en text-xl */}
       </div>
 
       {/* Section Mes recommandations */}

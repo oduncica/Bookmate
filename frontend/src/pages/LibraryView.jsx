@@ -88,7 +88,7 @@ const LibraryView = () => {
     <div
     className="container mx-auto px-4 py-8"
     style={{
-      background: "url('/bg_image.png') center center / 200% no-repeat, #3A3A64",
+      background: "url('/bg_image.png') center / 200% no-repeat, #3A3A64",
       minHeight: '100vh', // Forcer une hauteur minimale de 100% de la vue
       backgroundSize: 'cover',
       backgroundPosition: 'center',

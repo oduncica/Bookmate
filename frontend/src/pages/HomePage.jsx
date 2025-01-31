@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSuggestionsStore } from "../store/useSuggestionsStore"; // Utilisez le nouveau store
+import { useSuggestionsStore } from "../store/useSuggestionsStore"; 
 import TinderBookCard from "../components/TinderBookCard";
 import { useSwipeable } from "react-swipeable";
 
@@ -48,12 +48,16 @@ const HomePage = () => {
 
   return (
     <div
-      className="container mx-auto px-4 py-8 bg-[#3A3A64] min-h-screen flex flex-col items-center justify-center"
-      {...handlers}
+      className="min-h-screen bg-cover bg-center flex flex-col items-center p-6"
+      style={{
+        backgroundImage: "url('/bg_image.png')",
+        backgroundSize: "200%",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: "#3A3A64", // Violet background
+      }}
     >
-      {/* <h3 className="text-4xl font-bold text-center mb-8 text-white">
-        BookMate
-      </h3> */}
+      <img src="/logoHorizontal.png" alt="Logo" className="mb-2" />
       <div className="flex justify-center items-center w-full h-full">
         {Array.isArray(suggestions) && suggestions.length > 0 ? (
           <TinderBookCard

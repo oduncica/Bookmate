@@ -91,14 +91,23 @@ const AdvancedSearch = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-[#3A3A64] min-h-screen">
+    <div
+    className="container mx-auto px-4 py-8 min-h-screen"
+    style={{
+      backgroundImage: "url('/bg_image.png')",
+      backgroundSize: "200%",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundColor: "#3A3A64", // Violet background
+    }}
+  >
       <div className="search-container mb-8">
         <div className="flex items-center mb-4 w-full max-w-lg mx-auto">
           <img src={logo} alt="Logo" className="h-12 mr-2" />
           
           {/* Zone de recherche plus petite mais avec icône et texte à gauche */}
         <div className="flex items-center w-3/4 bg-white rounded-lg border border-[#3A3A64] focus:ring-2 focus:ring-[#3A3A64] focus:border-[#3A3A64]">
-          <FaSearch className="text-[#3A3A64] ml-4 text-xl" /> {/* Icône Search en #3A3A64 */}
+          {/*<FaSearch className="text-[#3A3A64] ml-4 text-xl" />  Icône Search en #3A3A64 */}
           
           <input
             type="text"
@@ -115,7 +124,7 @@ const AdvancedSearch = () => {
           onClick={() => setShowFilters(!showFilters)}
           className="bg-white text-[#3A3A64] p-3 rounded-lg flex items-center justify-center ml-2 w-16 h-full border border-[#3A3A64]"
         >
-          <FaSlidersH className="text-xl" />
+          <FaSlidersH className="text-xl transform scale-125" />
         </button>
         </div>
   
